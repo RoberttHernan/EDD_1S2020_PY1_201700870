@@ -5,7 +5,6 @@
 #include <string>
 #include <stdlib.h>
 
-#include "Nodo.h"
 #include "Nodo.cpp"
 
 
