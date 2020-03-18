@@ -15,8 +15,8 @@ listaEnlazadaDobleCircular <T>::listaEnlazadaDobleCircular(){
 template <typename T>
 void listaEnlazadaDobleCircular <T>::AddHead(T data)
 {
-    Nodo <T> *newNode = new Nodo<T> (data);
-    Nodo <T> *temp = head;
+    NodoDCLL <T> *newNode = new NodoDCLL<T> (data);
+    NodoDCLL <T> *temp = head;
 
     if (head==NULL){
         head = newNode;
@@ -44,7 +44,7 @@ void listaEnlazadaDobleCircular <T>::AddHead(T data)
 }
 template <typename T>
 void listaEnlazadaDobleCircular  <T> ::Print(){
-    Nodo <T> *temp = head;
+    NodoDCLL <T> *temp = head;
     if(head==NULL){
         cout <<"Lista Vacia"<<endl;
     }

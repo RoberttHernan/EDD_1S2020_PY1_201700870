@@ -1,0 +1,41 @@
+{
+    "dimension": 20,
+    "casillas": {
+        "dobles": [
+            {
+                "x": 2,
+                "y": 5
+            },
+            {
+                "x": 4,
+                "y": 9
+            }
+
+        ],
+        "triples":[
+            {
+                "x": 7,
+                "y": 1
+            },
+            {
+                "x": 1,
+                "y": 2
+            },
+            {
+                "x": 9,
+                "y": 7
+            }
+        ]
+    },
+    "diccionario":[
+        {
+            "Palabra":"Hola"
+        },
+        {
+            "Palabra":"Paz"
+        },
+        {
+            "Palabra":"Amor"
+        }
+    ]
+}

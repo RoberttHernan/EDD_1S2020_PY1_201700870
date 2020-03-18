@@ -11,6 +11,7 @@ private:
     int y;
 public:
     Casillas();
+    Casillas(string tipo, int x, int y);
     ~Casillas();
     string getTipo();
     void   setTipo(string tipo);
@@ -18,6 +19,7 @@ public:
     void set_x(int x);
     int get_y();
     void set_y(int y);
+    
 };
 
 

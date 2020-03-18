@@ -5,7 +5,7 @@
 #include <string>
 #include <stdlib.h>
 
-#include "Nodo.cpp"
+#include "NodoDCLL.cpp"
 
 
 using namespace std ;
@@ -14,8 +14,8 @@ template <class T>
 class listaEnlazadaDobleCircular
 {
 private:
-   Nodo<T> *head;
-   Nodo <T>*tail;
+   NodoDCLL<T> *head;
+   NodoDCLL <T>*tail;
    int index;
 public:
     listaEnlazadaDobleCircular(/* args */);
@@ -25,8 +25,8 @@ public:
     void Print();
     
 
-    Nodo<T> *getNodo ();
-    void SetNodo (Nodo <T>);
+    NodoDCLL<T> *getNodo ();
+    void SetNodo (NodoDCLL <T>);
     int getIndex();
     void setIndex(int);
 

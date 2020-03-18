@@ -1,9 +1,9 @@
-#include "Nodo.h"
+#include "NodoDCLL.h"
 
 //constructor por defecto
 template <typename T>
 
-Nodo <T>::Nodo(){
+NodoDCLL<T>::NodoDCLL(){
     this->data = NULL;
     this->next = NULL;
     this->prev =NULL;
@@ -12,7 +12,7 @@ Nodo <T>::Nodo(){
 
 //constructor por parametro
 template <typename T>
-Nodo <T>::Nodo (T data){
+NodoDCLL <T>::NodoDCLL (T data){
     this->data = data ;
     this->next = NULL;
     this->prev = NULL;
@@ -21,7 +21,7 @@ Nodo <T>::Nodo (T data){
 
 //eliminar todos los nodos
 template <typename T>
-void Nodo <T>::deleteAll(){
+void NodoDCLL <T>::deleteAll(){
     if (next){
         next->deleteAll();
         delete this ;
@@ -29,32 +29,32 @@ void Nodo <T>::deleteAll(){
 }
 //imprime un nodo
 template <typename T>
-void Nodo <T>:: print(){
+void NodoDCLL <T>:: print(){
     std:: cout << data << "->";
 }
 
 template <typename T>
-void Nodo<T>::setNext(Nodo * next){
+void NodoDCLL<T>::setNext(NodoDCLL * next){
     this->next = next ;
 }
 template <typename T>
-void Nodo<T>::setPrev(Nodo * prev){
+void NodoDCLL<T>::setPrev(NodoDCLL * prev){
     this->prev = prev;
 }
 template <typename T>
- Nodo<T> *Nodo<T>::getNext(){
+ NodoDCLL<T> *NodoDCLL<T>::getNext(){
     return this->next;
 }
 template <typename T>
- Nodo<T> *Nodo<T>::getPrev(){
+ NodoDCLL<T> *NodoDCLL<T>::getPrev(){
     return this->prev;
 }
 template <typename T>
-void Nodo <T>::setData(T data){
+void NodoDCLL <T>::setData(T data){
     this->data = data;
 }
 template <typename T>
-T Nodo<T>::getData(){
+T NodoDCLL<T>::getData(){
     return this->data;
 }
 
@@ -62,4 +62,4 @@ T Nodo<T>::getData(){
 //destructor
 
 template<typename T>
-Nodo<T>::~Nodo() {}
+NodoDCLL<T>::~NodoDCLL() {}

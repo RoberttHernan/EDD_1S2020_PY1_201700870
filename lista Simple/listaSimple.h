@@ -40,6 +40,7 @@ public:
 
     Nodo<T> *getNodo ();
     void SetNodo (Nodo <T>);
+    Nodo<T> *getHead();
     int getIndex();
     void setIndex(int);
 
