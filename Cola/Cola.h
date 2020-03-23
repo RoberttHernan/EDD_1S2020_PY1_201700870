@@ -4,15 +4,15 @@
 
 #include <string>
 #include <iostream>
-#include "Nodo.cpp"
+#include "NodoCola.cpp"
 
 template <class T>
 
 class Cola
 {
 private:
-    Nodo<T> *head ;
-    Nodo <T>*tail;
+    NodoCola<T> *head ;
+    NodoCola <T>*tail;
     int size ;
 public:
     Cola();
@@ -21,12 +21,13 @@ public:
     void InQueue();
     void Print();
 
-    Nodo<T> *getHead ();
-    void SetHead (Nodo <T>);
-    Nodo<T> *getTail ();
-    void SetTail (Nodo <T>);
+    NodoCola<T> *getHead ();
+    void SetHead (NodoCola <T>*);
+    NodoCola<T> *getTail ();
+    void SetTail (NodoCola <T>*);
     int getSize();
     void setSize(int);
+    bool buscar(T);
 
 };
 

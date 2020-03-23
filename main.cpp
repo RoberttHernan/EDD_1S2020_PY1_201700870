@@ -5,22 +5,27 @@
 #include <string>
 #include <stdlib.h>
 #include <stdio.h>
+
 #include "configJson/json.hpp"
 #include "lista Simple/listaSimple.cpp"
 #include "Otra Clases/Casillas.cpp"
 #include "Lista doblemente enlazada Circular/listaEnlazadaDobleCircular.cpp"
+#include "Cola/Cola.cpp"
+#include "Otra Clases/Letra.cpp"
+#include "ABB/ABB.cpp"
 
 using namespace std;
 using json = nlohmann::json;
 
 void config(string ruta);
 void imprimirListaConfiguraciones();
+void llenarColaAleatoria();
 
-int dimension;
-listaSimple<Casillas> *listaCasillas = new listaSimple<Casillas>();//Guarda la configuracion de las casillas del juego
+int dimension;                                                      // entero M que guarda la dimension M*M del tablero de juego
+listaSimple<Casillas> *listaCasillas = new listaSimple<Casillas>(); //Guarda la configuracion de las casillas del juego
 //lista Doblemente enlazada circular que guardara las palabras del juego
-listaEnlazadaDobleCircular<string> *listaPalabras = new listaEnlazadaDobleCircular<string> ();
-
+listaEnlazadaDobleCircular<string> *listaPalabras = new listaEnlazadaDobleCircular<string>();
+Cola<Letra> *cola = new Cola<Letra>();
 
 int main()
 {
@@ -31,11 +36,13 @@ int main()
 
     while (bandera == true)
     {
+        cout << "\n";
         cout << "***************************\n";
         cout << "*        Scrable          *\n";
         cout << "***************************\n";
         cout << "*1.Agregar configuraciones*\n";
         cout << "*2.Agregar jugadores      *\n";
+        cout << "*5.Reportes               *\n";
         cout << "*3.Salir*\n";
         cin >> opcion;
         switch (opcion)
@@ -46,15 +53,21 @@ int main()
             cin >> ruta_configuracion;
             config(ruta_configuracion);
             system("clear");
-            cout << "Configuracion agregadas \n";
-            imprimirListaConfiguraciones();
-            listaPalabras->Print();
 
             break;
         case 3:
 
             exit(-1);
             break;
+        case 5:
+        {
+            ABB<int> *arbol = new ABB<int>();
+            arbol->Add(5);
+            arbol->Add(9);
+            arbol->Add(8);
+            //arbol->PostOrden(arbol->getRoot());
+        }
+        break;
 
         default:
             break;
@@ -66,31 +79,39 @@ int main()
 
 void config(string ruta)
 {
-    std::ifstream i(ruta);
-    json j3;
-    i >> j3;
+    try
+    {
+        std::ifstream i(ruta);
+        json j3;
+        i >> j3;
 
-    dimension = j3.at("dimension");
-    for (int x = 0; x < j3.at("casillas").at("dobles").size(); x++)
-    {
-        Casillas *nueva = new Casillas();
-        nueva->setTipo("Doble");
-        nueva->set_x(j3.at("casillas").at("dobles")[x].at("x"));
-        nueva->set_y(j3.at("casillas").at("dobles")[x].at("y"));
-        listaCasillas->AddHead(*nueva);
+        dimension = j3.at("dimension");
+        for (int x = 0; x < j3.at("casillas").at("dobles").size(); x++)
+        {
+            Casillas *nueva = new Casillas();
+            nueva->setTipo("Doble");
+            nueva->set_x(j3.at("casillas").at("dobles")[x].at("x"));
+            nueva->set_y(j3.at("casillas").at("dobles")[x].at("y"));
+            listaCasillas->AddHead(*nueva);
+        }
+        for (int x = 0; x < j3.at("casillas").at("triples").size(); x++)
+        {
+            Casillas *nueva = new Casillas();
+            nueva->setTipo("Triple");
+            nueva->set_x(j3.at("casillas").at("triples")[x].at("x"));
+            nueva->set_y(j3.at("casillas").at("triples")[x].at("y"));
+            listaCasillas->AddHead(*nueva);
+        }
+        for (int i = 0; i < j3.at("diccionario").size(); i++)
+        {
+            listaPalabras->AddHead(j3.at("diccionario")[i].at("Palabra"));
+        }
+        cout << "Dimension, casillas dobles, casillas triples y Diccionario configurado";
+        cout << " ";
     }
-    for (int x = 0; x < j3.at("casillas").at("triples").size(); x++)
+    catch (exception e)
     {
-        Casillas *nueva = new Casillas();
-        nueva->setTipo("Triple");
-        nueva->set_x(j3.at("casillas").at("triples")[x].at("x"));
-        nueva->set_y(j3.at("casillas").at("triples")[x].at("y"));
-        listaCasillas->AddHead(*nueva);
-    }
-    for (int i = 0; i < j3.at("diccionario").size(); i++)
-    {
-        listaPalabras->AddHead(j3.at("diccionario")[i].at("Palabra"));
-        
+        cout << "Error, Configuracion fallida, el juego podria no funcionar correctamente";
     }
 }
 
@@ -103,4 +124,111 @@ void imprimirListaConfiguraciones()
         cout << "(X=" << nuevo->getData().get_x() << ", Y=" << nuevo->getData().get_y() << ")\n";
         nuevo = nuevo->getNext();
     }
+}
+
+void llenarColaAleatoria()
+{
+
+    Cola<int> *lista_numeros = new Cola<int>();
+    int num;
+    srand(time(NULL));
+    while (cola->getSize() <= 25)
+    {
+        num = 1 + rand() % (25 - 1);
+        if (lista_numeros->buscar(num) == false)
+        {
+            lista_numeros->Queue(num);
+            switch (num)
+            {
+            case 1:
+                cola->Queue(*new Letra('A', 1, 12));
+                break;
+            case 2:
+                cola->Queue(*new Letra('E', 1, 12));
+                break;
+            case 3:
+                cola->Queue(*new Letra('O', 1, 9));
+                break;
+            case 4:
+                cola->Queue(*new Letra('I', 1, 6));
+                break;
+            case 5:
+                cola->Queue(*new Letra('S', 1, 6));
+                break;
+            case 6:
+                cola->Queue(*new Letra('N', 1, 5));
+                break;
+            case 7:
+                cola->Queue(*new Letra('L', 1, 4));
+                break;
+            case 8:
+                cola->Queue(*new Letra('R', 1, 5));
+                break;
+            case 9:
+                cola->Queue(*new Letra('U', 1, 5));
+                break;
+            case 10:
+                cola->Queue(*new Letra('T', 1, 4));
+                break;
+            case 11:
+                cola->Queue(*new Letra('D', 2, 5));
+                break;
+            case 12:
+                cola->Queue(*new Letra('G', 2, 2));
+                break;
+            case 13:
+                cola->Queue(*new Letra('C', 3, 4));
+                break;
+            case 14:
+                cola->Queue(*new Letra('B', 3, 2));
+                break;
+            case 15:
+                cola->Queue(*new Letra('M', 3, 2));
+                break;
+            case 16:
+                cola->Queue(*new Letra('P', 3, 2));
+                break;
+            case 17:
+                cola->Queue(*new Letra('H', 4, 1));
+                break;
+            case 18:
+                cola->Queue(*new Letra('F', 4, 1));
+                break;
+            case 19:
+                cola->Queue(*new Letra('V', 4, 1));
+                break;
+            case 20:
+                cola->Queue(*new Letra('Y', 4, 1));
+                break;
+            case 21:
+                cola->Queue(*new Letra('Q', 5, 1));
+                break;
+            case 22:
+                cola->Queue(*new Letra('J', 8, 1));
+                break;
+            case 23:
+                cola->Queue(*new Letra('\65', 8, 1));
+                break;
+            case 24:
+                cola->Queue(*new Letra('X', 8, 1));
+                break;
+            case 25:
+                cola->Queue(*new Letra('Z', 10, 1));
+                break;
+
+            default:
+                break;
+            }
+        }
+    }
+    /*NodoCola<Letra> *temp_head = cola->getHead();
+    NodoCola<Letra> *temp_tail = cola->getTail();
+
+    while (temp_tail != temp_head)
+    {
+        cout << "Letra: " << temp_tail->getData().getLetra()
+             << " Puntaje= " << temp_tail->getData().getPuntaje()
+             << " Cantidad= " << temp_tail->getData().getCantidad();
+        temp_tail = temp_tail->getNext();
+    }*/
 }

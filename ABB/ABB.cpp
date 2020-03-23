@@ -14,14 +14,14 @@ ABB<T>::ABB(){
 }
 
 template<typename T>
-Nodo <T> *ABB<T>::getRoot(){
+NodoArbol <T> *ABB<T>::getRoot(){
     return this->root;
 }
 
 
 template <typename T >
     void ABB<T>::Add(T data){
-        Nodo<T> *padre = NULL;
+        NodoArbol<T> *padre = NULL;
         actual= root;
         //buscando el dato en el arbol manteniendo el puntero al nodo padre
         while (!IsEmpty(actual) && data !=actual->getData()){
@@ -38,21 +38,21 @@ template <typename T >
        if(!IsEmpty(actual)){return ;}
        //si el padre es null el arbol estaba vacio,
        if(IsEmpty(root)){
-           root = new Nodo<T> (data); 
+           root = new NodoArbol<T> (data); 
            }
        else if(data<padre->getData()){
-           padre->setLeft(new Nodo<T>(data));
+           padre->setLeft(new NodoArbol<T>(data));
            
        }
        else if(data>padre->getData()){
-           padre->setRight(new Nodo <T>(data));
+           padre->setRight(new NodoArbol <T>(data));
           
        }
 
     }
 //Recorridos
 template<typename T>
-void ABB<T>::Preorden(Nodo<T> *nodo){
+void ABB<T>::Preorden(NodoArbol<T> *nodo){
     if(nodo!=NULL){
         cout <<nodo->getData()<<" ";
         Preorden(nodo->getLeft());
@@ -61,7 +61,7 @@ void ABB<T>::Preorden(Nodo<T> *nodo){
     
 }
 template <typename T>
-void ABB<T>::InOrden(Nodo<T> * nodo){
+void ABB<T>::InOrden(NodoArbol<T> * nodo){
         if(nodo!=NULL){
             InOrden(nodo->getLeft());
             cout<<nodo->getData()<<" ";
@@ -70,7 +70,7 @@ void ABB<T>::InOrden(Nodo<T> * nodo){
         
 }
 template <typename T>
-void ABB<T>::PostOrden(Nodo <T> * nodo){
+void ABB<T>::PostOrden(NodoArbol <T> * nodo){
     if(!IsEmpty(nodo)){
         PostOrden(nodo->getLeft());
         PostOrden(nodo->getRight());
@@ -88,7 +88,7 @@ void ABB<T>::Podar(Nodo <T>* &node){
         }
 }*/
 template <typename T>
-bool ABB<T>::IsEmpty(Nodo <T>* r){
+bool ABB<T>::IsEmpty(NodoArbol <T>* r){
 return r == NULL;
 }
 template <typename T>

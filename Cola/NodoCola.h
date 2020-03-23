@@ -1,26 +1,26 @@
 
-#ifndef NODE_H
-#define NODE_H
+#ifndef NODOCOLA_H
+#define NODECOLA_H
 
 #include <iostream>
 
 template <class T>
 
-class Nodo
+class NodoCola
 {
 private:
-   Nodo* next ;
+   NodoCola* next ;
    T data;
 public:
-    Nodo();
-    ~Nodo();
-    Nodo(T);
+    NodoCola();
+    ~NodoCola();
+    NodoCola(T);
     void deleteAll();
     void print ();
     
     //Getters y Setters
-    Nodo* getNext();
-    void setNext(Nodo * next);
+    NodoCola* getNext();
+    void setNext(NodoCola * next);
     T getData();
     void setData(T data);
 

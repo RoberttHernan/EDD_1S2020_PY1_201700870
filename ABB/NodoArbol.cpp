@@ -1,9 +1,9 @@
-#include "Nodo.h"
+#include "NodoArbol.h"
 
 //constructor por defecto
 template <typename T>
 
-Nodo <T>::Nodo(){
+NodoArbol <T>::NodoArbol(){
     data = NULL;
     right = NULL;
     left =NULL;
@@ -11,7 +11,7 @@ Nodo <T>::Nodo(){
 
 //constructor por parametro
 template <typename T>
-Nodo <T>::Nodo (T data){
+NodoArbol <T>::NodoArbol (T data){
     this->data = data ;
     right = NULL;
     left = NULL;
@@ -20,7 +20,7 @@ Nodo <T>::Nodo (T data){
 
 //eliminar todos los nodos
 template <typename T>
-void Nodo <T>::deleteAll(){
+void NodoArbol <T>::deleteAll(){
     if (right){
         right->deleteAll();
         delete this ;
@@ -28,32 +28,32 @@ void Nodo <T>::deleteAll(){
 }
 //imprime un nodo
 template <typename T>
-void Nodo <T>:: print(){
+void NodoArbol <T>:: print(){
     std:: cout << data << "->";
 }
 
 template <typename T>
-void Nodo<T>::setRight(Nodo * right){
+void NodoArbol<T>::setRight(NodoArbol * right){
     this->right = right;
 }
 template <typename T>
- Nodo<T> *Nodo<T>::getRight(){
+ NodoArbol<T> *NodoArbol<T>::getRight(){
     return this->right;
 }
 template <typename T>
-void Nodo<T>::setLeft(Nodo * left){
+void NodoArbol<T>::setLeft(NodoArbol * left){
     this->left = left;
 }
 template <typename T>
- Nodo<T> *Nodo<T>::getLeft(){
+ NodoArbol<T> *NodoArbol<T>::getLeft(){
     return this->left;
 }
 template <typename T>
-void Nodo <T>::setData(T data){
+void NodoArbol <T>::setData(T data){
     this->data = data;
 }
 template <typename T>
-T Nodo<T>::getData(){
+T NodoArbol<T>::getData(){
     return this->data;
 }
 
@@ -61,4 +61,4 @@ T Nodo<T>::getData(){
 //destructor
 
 template<typename T>
-Nodo<T>::~Nodo() {}
+NodoArbol<T>::~NodoArbol() {}
