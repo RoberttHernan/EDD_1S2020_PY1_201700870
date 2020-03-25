@@ -5,6 +5,7 @@
 #include <string>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 #include "configJson/json.hpp"
 #include "lista Simple/listaSimple.cpp"
@@ -26,6 +27,8 @@ listaSimple<Casillas> *listaCasillas = new listaSimple<Casillas>(); //Guarda la 
 //lista Doblemente enlazada circular que guardara las palabras del juego
 listaEnlazadaDobleCircular<string> *listaPalabras = new listaEnlazadaDobleCircular<string>();
 Cola<Letra> *cola = new Cola<Letra>();
+ABB* arbol = new ABB();
+
 
 int main()
 {
@@ -48,11 +51,15 @@ int main()
         switch (opcion)
         {
         case 1:
-            system("clear");
+            system("CLS");
             cout << "ingrese el nombre del archivo de configuracion\n";
             cin >> ruta_configuracion;
             config(ruta_configuracion);
-            system("clear");
+            system("pause");
+
+            break;
+
+        case 2:
 
             break;
         case 3:
@@ -61,11 +68,6 @@ int main()
             break;
         case 5:
         {
-            ABB<int> *arbol = new ABB<int>();
-            arbol->Add(5);
-            arbol->Add(9);
-            arbol->Add(8);
-            //arbol->PostOrden(arbol->getRoot());
         }
         break;
 
@@ -106,12 +108,13 @@ void config(string ruta)
         {
             listaPalabras->AddHead(j3.at("diccionario")[i].at("Palabra"));
         }
-        cout << "Dimension, casillas dobles, casillas triples y Diccionario configurado";
+        cout << "Dimension, casillas dobles, casillas triples y Diccionario configurado \n";
         cout << " ";
     }
     catch (exception e)
     {
-        cout << "Error, Configuracion fallida, el juego podria no funcionar correctamente";
+        cout << "Error, Configuracion fallida, el juego podria no funcionar correctamente\n";
+        system("pause");
     }
 }
 

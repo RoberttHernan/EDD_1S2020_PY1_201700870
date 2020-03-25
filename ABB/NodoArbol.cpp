@@ -1,64 +1,59 @@
 #include "NodoArbol.h"
 
 //constructor por defecto
-template <typename T>
 
-NodoArbol <T>::NodoArbol(){
-    data = NULL;
+
+NodoArbol::NodoArbol(){
     right = NULL;
     left =NULL;
+    this->player.setUsuario("NULL");
+    
+
 }
 
 //constructor por parametro
-template <typename T>
-NodoArbol <T>::NodoArbol (T data){
-    this->data = data ;
+NodoArbol ::NodoArbol (Jugador *player){
+    this->player = *player ;
     right = NULL;
     left = NULL;
 
 }
 
 //eliminar todos los nodos
-template <typename T>
-void NodoArbol <T>::deleteAll(){
+void NodoArbol::deleteAll(){
     if (right){
         right->deleteAll();
         delete this ;
     }
 }
 //imprime un nodo
-template <typename T>
-void NodoArbol <T>:: print(){
-    std:: cout << data << "->";
+void NodoArbol:: print(){
+    std:: cout << player.getUsuario() << "->";
+
 }
 
-template <typename T>
-void NodoArbol<T>::setRight(NodoArbol * right){
+void NodoArbol::setRight(NodoArbol * right){
     this->right = right;
 }
-template <typename T>
- NodoArbol<T> *NodoArbol<T>::getRight(){
+
+ NodoArbol *NodoArbol::getRight(){
     return this->right;
 }
-template <typename T>
-void NodoArbol<T>::setLeft(NodoArbol * left){
+void NodoArbol::setLeft(NodoArbol * left){
     this->left = left;
 }
-template <typename T>
- NodoArbol<T> *NodoArbol<T>::getLeft(){
+
+ NodoArbol *NodoArbol::getLeft(){
     return this->left;
 }
-template <typename T>
-void NodoArbol <T>::setData(T data){
-    this->data = data;
+void NodoArbol::setData(Jugador *player){
+    this->player = *player;
 }
-template <typename T>
-T NodoArbol<T>::getData(){
-    return this->data;
+Jugador NodoArbol::getPlayer(){
+    return this->player;
 }
 
 
 //destructor
 
-template<typename T>
-NodoArbol<T>::~NodoArbol() {}
+NodoArbol::~NodoArbol() {}

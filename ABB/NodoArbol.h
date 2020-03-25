@@ -1,20 +1,21 @@
-#ifndef NODE_H
-#define NODE_H
+#ifndef NODE_H_
+#define NODE_H_
 
 #include <iostream>
+#include ".\Otra Clases\Jugador.cpp"
 
-template <class T>
+
 
 class NodoArbol
 {
 private:
    NodoArbol* right ;
    NodoArbol * left;
-   T data;
+   Jugador player;
 public:
     NodoArbol();
     ~NodoArbol();
-    NodoArbol(T);
+    NodoArbol(Jugador*);
     void deleteAll();
     void print ();
     
@@ -23,8 +24,8 @@ public:
     void setRight(NodoArbol * right);
     NodoArbol* getLeft();
     void setLeft(NodoArbol * left);
-    T getData();
-    void setData(T data);
+    Jugador getPlayer();
+    void setData(Jugador *player);
 
 };
 
