@@ -8,7 +8,7 @@
 #include <time.h>
 
 #include "configJson/json.hpp"
-#include "lista Simple/listaSimple.cpp"
+//#include "lista Simple/listaSimple.cpp"
 #include "Otra Clases/Casillas.cpp"
 #include "Lista doblemente enlazada Circular/listaEnlazadaDobleCircular.cpp"
 #include "Cola/Cola.cpp"
@@ -27,8 +27,7 @@ listaSimple<Casillas> *listaCasillas = new listaSimple<Casillas>(); //Guarda la 
 //lista Doblemente enlazada circular que guardara las palabras del juego
 listaEnlazadaDobleCircular<string> *listaPalabras = new listaEnlazadaDobleCircular<string>();
 Cola<Letra> *cola = new Cola<Letra>();
-ABB* arbol = new ABB();
-
+ABB *arbol = new ABB();
 
 int main()
 {
@@ -60,8 +59,28 @@ int main()
             break;
 
         case 2:
+        {
+            bool bandera_casoDos = true;
+            while (bandera_casoDos)
+            {
+                string nombreUsuario;
+                cout << "Ingrese el nombre de Usuario \n";
+                cin >> nombreUsuario;
+                if (arbol->buscar(nombreUsuario))
+                {
+                    cout << "Usuario no disponible";
+                }
+                else
+                {
+                    Jugador *temp = new Jugador(nombreUsuario);
+                    cout << "Usuario registrado Correctamente";
+                    system("pause");
+                    bandera_casoDos = false;
+                }
+            }
+        }
 
-            break;
+        break;
         case 3:
 
             exit(-1);

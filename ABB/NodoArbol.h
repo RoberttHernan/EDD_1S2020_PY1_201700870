@@ -2,7 +2,7 @@
 #define NODE_H_
 
 #include <iostream>
-#include ".\Otra Clases\Jugador.cpp"
+#include "../Otra Clases/Jugador.cpp"
 
 
 

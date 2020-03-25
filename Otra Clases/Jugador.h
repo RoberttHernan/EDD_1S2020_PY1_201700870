@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include <string>
-#include "lista simple/listaSimple.cpp"
+#include "..\lista Simple\listaSimple.cpp"
 using namespace std;
 
 class Jugador
