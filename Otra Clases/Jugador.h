@@ -27,6 +27,7 @@ public:
 
 Jugador::Jugador()
 {
+    this->usuario = "NULL";
     
 }
 Jugador::Jugador(string usuario)

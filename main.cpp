@@ -93,8 +93,9 @@ int main()
             {
                 cout << "1: Seleccionar jugador 1\n";
                 cout << "2: Seleccionar jugador 2\n";
-                cout << "3: Seleccionar jugador 3\n";
-                cin>>opcion_caso3;
+                cout << "3: Ver jugadores actuales \n";
+                cout << "4: Salir\n";
+                cin >> opcion_caso3;
                 switch (opcion_caso3)
                 {
                 case 1:
@@ -102,7 +103,7 @@ int main()
                     string usuario_uno;
                     cout << "Seleccione jugador 1\n";
                     cin >> usuario_uno;
-                    if (arbol->buscar(usuario_uno) && usuario_uno!=jugador_dos.getUsuario())
+                    if (arbol->buscar(usuario_uno) && usuario_uno != jugador_dos.getUsuario())
                     {
                         jugador_uno = arbol->buscarJugador(usuario_uno);
                         cout << "Jugador uno seleccionado\n";
@@ -119,9 +120,9 @@ int main()
                     string usuario_dos;
                     cout << "Seleccione jugador 2\n";
                     cin >> usuario_dos;
-                    if (arbol->buscar(usuario_dos) && usuario_dos!= jugador_uno.getUsuario())
+                    if (arbol->buscar(usuario_dos) && usuario_dos != jugador_uno.getUsuario())
                     {
-                        jugador_uno = arbol->buscarJugador(usuario_dos);
+                        jugador_dos = arbol->buscarJugador(usuario_dos);
                         cout << "Jugador dos seleccionado\n";
                     }
                     else
@@ -131,9 +132,28 @@ int main()
                 }
                 break;
                 case 3:
-                    bandera_caso3 = false;
+                if (jugador_uno.getUsuario()=="NULL" && jugador_dos.getUsuario()=="NULL"){
+                        cout<<"Ningun jugador seleccionado\n";
+
+                }
+                else if (jugador_uno.getUsuario()!="NULL" && jugador_dos.getUsuario()=="NULL"){
+                        cout <<"Jugador1: " + jugador_uno.getUsuario()+"\n";
+                        cout<<"Jugador 2 no seleccionado\n";
+
+                }
+                else if (jugador_uno.getUsuario()=="NULL" && jugador_dos.getUsuario()!="NULL"){
+                        cout<<"Jugador 1 no seleccionado\n";
+                        cout <<"Jugador2: " + jugador_dos.getUsuario()+"\n";
+                        
+
+                }
+
                     break;
 
+                case 4:
+                    bandera_caso3 = false;
+
+                    break;
                 default:
                     break;
                 }
@@ -146,8 +166,20 @@ int main()
             break;
         case 5:
         {
-            NodoArbol *raiz = arbol->getRoot();
-            arbol->InOrden(raiz);
+            bool bandera_caso5 = true;
+            int opcion_caso5;
+
+            while (bandera_caso5)
+            {
+                cout << "1:Reporte de palabras\n";
+                cout << "2:Reporte de Fichas disponibles\n";
+                cout << "3:Reporte de Jugadores( Arbol binario)\n";
+                cout << "4:Reporte recorrido Preorden ABB\n";
+                cout << "5:Reporte recorrido Inorden ABB\n";
+                cout << "6:Reporte recorrido Postorden ABB\n";
+                cout << "7:Reporte Puntaje por jugador\n";
+                cout << "8:Reporte Top puntuaciones\n";
+            }
         }
         break;
 

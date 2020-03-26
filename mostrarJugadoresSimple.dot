@@ -1,5 +1,6 @@
 digraph { 
-HArry
+Harry
+Hermione
 Ron
  labelloc="t"; label="Jugadores disponibles"; 
 }
