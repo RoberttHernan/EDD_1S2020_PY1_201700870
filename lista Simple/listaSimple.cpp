@@ -79,9 +79,16 @@ void listaSimple<T>::AddSort(T data)
             newNodo->setNext(temp->getNext());
             temp->setNext(newNodo);
         }
+        temp = head;
+        while (temp!=NULL){
+                tail = temp;
+                temp = temp->getNext();
+        }
         index++;
     }
 }
 
+template <typename T>
+Nodo<T> * listaSimple<T>::getTail(){return this->tail;}
 template <typename T>
 listaSimple<T>::~listaSimple() {}

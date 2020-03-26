@@ -33,12 +33,17 @@ public:
 //Operaciones
     void Add(Jugador*);
     bool buscar(string);
+    Jugador  buscarJugador (string);
     
     bool IsEmpty(NodoArbol*);
 
     void InOrden (NodoArbol *);
     void Preorden(NodoArbol *);//raiz, izquierda, derecha
     void PostOrden(NodoArbol *);//Izquierda, derecha, raiz
+
+
+    void mostrarJugadoresSimple ();// mostrara solo el listado de jugadores existentes
+    string graphvizArbolSimple(NodoArbol * nodo);// regresa el texto intermedio del texto graphviz necesitado para graficar en la funcion mostrarJugadoresSimple();
     //Funciones Auxiliares
     //void Podar(Nodo<T> * & node);
 

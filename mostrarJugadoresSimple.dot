@@ -1,0 +1,5 @@
+digraph { 
+HArry
+Ron
+ labelloc="t"; label="Jugadores disponibles"; 
+}

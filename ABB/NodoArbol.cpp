@@ -6,7 +6,7 @@
 NodoArbol::NodoArbol(){
     right = NULL;
     left =NULL;
-    this->player.setUsuario("NULL");
+    
     
 
 }

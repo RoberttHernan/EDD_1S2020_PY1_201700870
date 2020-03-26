@@ -16,6 +16,7 @@ class listaSimple
 {
 private:
    Nodo<T> *head;
+   Nodo<T> *tail;
    int index;
 public:
     listaSimple(/* args */);
@@ -43,6 +44,9 @@ public:
     Nodo<T> *getHead();
     int getIndex();
     void setIndex(int);
+
+    Nodo <T> *getTail();
+    void setTail (Nodo<T> *);
 
 };
 

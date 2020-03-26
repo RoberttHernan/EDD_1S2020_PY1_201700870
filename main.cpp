@@ -21,6 +21,7 @@ using json = nlohmann::json;
 void config(string ruta);
 void imprimirListaConfiguraciones();
 void llenarColaAleatoria();
+void registrarUsuario(string user);
 
 int dimension;                                                      // entero M que guarda la dimension M*M del tablero de juego
 listaSimple<Casillas> *listaCasillas = new listaSimple<Casillas>(); //Guarda la configuracion de las casillas del juego
@@ -28,6 +29,8 @@ listaSimple<Casillas> *listaCasillas = new listaSimple<Casillas>(); //Guarda la 
 listaEnlazadaDobleCircular<string> *listaPalabras = new listaEnlazadaDobleCircular<string>();
 Cola<Letra> *cola = new Cola<Letra>();
 ABB *arbol = new ABB();
+Jugador jugador_uno;
+Jugador jugador_dos;
 
 int main()
 {
@@ -44,8 +47,9 @@ int main()
         cout << "***************************\n";
         cout << "*1.Agregar configuraciones*\n";
         cout << "*2.Agregar jugadores      *\n";
+        cout << "*3.Seleccionar Jugador    *\n";
         cout << "*5.Reportes               *\n";
-        cout << "*3.Salir*\n";
+        cout << "*10.Salir*\n";
         cin >> opcion;
         switch (opcion)
         {
@@ -66,15 +70,14 @@ int main()
                 string nombreUsuario;
                 cout << "Ingrese el nombre de Usuario \n";
                 cin >> nombreUsuario;
+
                 if (arbol->buscar(nombreUsuario))
                 {
-                    cout << "Usuario no disponible";
+                    cout << "Usuario no disponible,Escriba otro usuario\n";
                 }
                 else
                 {
-                    Jugador *temp = new Jugador(nombreUsuario);
-                    cout << "Usuario registrado Correctamente";
-                    system("pause");
+                    registrarUsuario(nombreUsuario);
                     bandera_casoDos = false;
                 }
             }
@@ -82,11 +85,69 @@ int main()
 
         break;
         case 3:
+        {
+            arbol->mostrarJugadoresSimple();
+            bool bandera_caso3 = true;
+            int opcion_caso3;
+            while (bandera_caso3)
+            {
+                cout << "1: Seleccionar jugador 1\n";
+                cout << "2: Seleccionar jugador 2\n";
+                cout << "3: Seleccionar jugador 3\n";
+                cin>>opcion_caso3;
+                switch (opcion_caso3)
+                {
+                case 1:
+                {
+                    string usuario_uno;
+                    cout << "Seleccione jugador 1\n";
+                    cin >> usuario_uno;
+                    if (arbol->buscar(usuario_uno) && usuario_uno!=jugador_dos.getUsuario())
+                    {
+                        jugador_uno = arbol->buscarJugador(usuario_uno);
+                        cout << "Jugador uno seleccionado\n";
+                    }
+                    else
+                    {
+                        cout << "Jugador Invalido, seleccione otro Usuario\n";
+                    }
+                }
+
+                break;
+                case 2:
+                {
+                    string usuario_dos;
+                    cout << "Seleccione jugador 2\n";
+                    cin >> usuario_dos;
+                    if (arbol->buscar(usuario_dos) && usuario_dos!= jugador_uno.getUsuario())
+                    {
+                        jugador_uno = arbol->buscarJugador(usuario_dos);
+                        cout << "Jugador dos seleccionado\n";
+                    }
+                    else
+                    {
+                        cout << "Jugador Invalido, seleccione otro Usuario\n";
+                    }
+                }
+                break;
+                case 3:
+                    bandera_caso3 = false;
+                    break;
+
+                default:
+                    break;
+                }
+            }
+        }
+        break;
+        case 10:
 
             exit(-1);
             break;
         case 5:
         {
+            NodoArbol *raiz = arbol->getRoot();
+            arbol->InOrden(raiz);
         }
         break;
 
@@ -253,4 +314,16 @@ void llenarColaAleatoria()
              << " Cantidad= " << temp_tail->getData().getCantidad();
         temp_tail = temp_tail->getNext();
     }*/
+}
+void registrarUsuario(string user)
+{
+
+    /*listaSimple<int> * list = new listaSimple<int>();
+    list->AddSort(0);*/
+    Jugador *temp = new Jugador();
+    temp->setUsuario(user);
+
+    //temp->setPuntajeUsuario(list);
+
+    arbol->Add(temp);
 }

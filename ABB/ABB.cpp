@@ -1,7 +1,8 @@
+
+
 #include "ABB.h"
-
 using namespace std;
-
+string texto;
 ABB::ABB()
 {
 
@@ -52,20 +53,19 @@ void ABB::Add(Jugador *data)
     //si el padre es null el arbol estaba vacio,
     if (IsEmpty(root))
     {
-       root = new NodoArbol();
-       root->setData(data);
-    
+        root = new NodoArbol();
+        root->setData(data);
     }
     else if (data->getUsuario() < padre->getPlayer().getUsuario())
     {
         NodoArbol *temp = new NodoArbol(data);
-        
+
         padre->setLeft(temp);
     }
     else if (data->getUsuario() > padre->getPlayer().getUsuario())
     {
         NodoArbol *temp = new NodoArbol(data);
-        
+
         padre->setRight(temp);
     }
 }
@@ -79,6 +79,25 @@ void ABB::InOrden(NodoArbol *nodo)
         InOrden(nodo->getRight());
     }
 }
+
+/*void ABB::InOrden(NodoArbol *nodo)
+{
+    int contador = 1;
+    //string texto = "digraph Players { \n rankdir =TB \n node [style=Box] \n";
+    string texto;
+    if (nodo != NULL)
+    {
+
+        InOrden(nodo->getLeft());
+        
+            texto += "node" + to_string(contador) + "[shape = record, label =\"{ " + nodo->getPlayer().getUsuario() + " | MaxScore: " + to_string(nodo->getPlayer().getPuntajeUsuario()->getTail()->getData()) + "}\"]\n";
+            //cout << nodo->getPlayer().getUsuario() << " ";
+        
+        InOrden(nodo->getRight());
+    }
+    //texto += "\n}";
+    cout << texto;
+}*/
 
 bool ABB::buscar(string user)
 {
@@ -104,6 +123,31 @@ bool ABB::buscar(string user)
         return true;
     }
     return false;
+}
+Jugador ABB::buscarJugador(string user)
+{
+    Jugador * nulo = new Jugador();
+    NodoArbol *padre = NULL;
+    actual = root;
+
+    while (!IsEmpty(actual) && user != actual->getPlayer().getUsuario())
+    {
+        padre = actual;
+        if (user > actual->getPlayer().getUsuario())
+        {
+            actual = actual->getRight();
+        }
+        else if (user < actual->getPlayer().getUsuario())
+        {
+            actual = actual->getLeft();
+        }
+    }
+    if (!IsEmpty(actual))
+    {
+
+        return actual->getPlayer();
+    }
+    return *nulo;
 }
 //Recorridos
 /*template <typename T>
@@ -183,3 +227,32 @@ bool ABB<T>::buscar(T data)
     return false;
 }
 */
+string ABB::graphvizArbolSimple(NodoArbol *nodo)
+{
+    //string texto = "digraph Players { \n rankdir =TB \n node [style=Box] \n";
+
+    if (nodo != NULL)
+    {
+
+        graphvizArbolSimple(nodo->getLeft());
+
+        texto += nodo->getPlayer().getUsuario() + "\n";
+
+        graphvizArbolSimple(nodo->getRight());
+    }
+    return texto;
+}
+void ABB::mostrarJugadoresSimple()
+{
+    NodoArbol *raiz = this->root;
+    string temp = graphvizArbolSimple(raiz);
+    string texto = "digraph { \n" + temp + " labelloc=\"t\"; label=\"Jugadores disponibles\"; \n}";
+
+    ofstream ficheroSalida;
+    ficheroSalida.open("mostrarJugadoresSimple.dot");
+    ficheroSalida << texto;
+    ficheroSalida.close();
+
+    system("dot -Tpng mostrarJugadoresSimple.dot -o mostrarJugadoresSimple.png");
+    system("mostrarJugadoresSimple.png &");
+}
