@@ -22,15 +22,19 @@ void config(string ruta);
 void imprimirListaConfiguraciones();
 void llenarColaAleatoria();
 void registrarUsuario(string user);
+void graficarColaLetras();
+void llenarListaDobles(listaEnlazadaDobleCircular<Letra> *lista); // funcion que llenara las listad circulares dobles de fichas para los jugadores a partir de la cola
 
 int dimension;                                                      // entero M que guarda la dimension M*M del tablero de juego
 listaSimple<Casillas> *listaCasillas = new listaSimple<Casillas>(); //Guarda la configuracion de las casillas del juego
 //lista Doblemente enlazada circular que guardara las palabras del juego
-listaEnlazadaDobleCircular<string> *listaPalabras = new listaEnlazadaDobleCircular<string>();
-Cola<Letra> *cola = new Cola<Letra>();
+listaEnlazadaDobleCircular<string> *listaPalabras = new listaEnlazadaDobleCircular<string>();//diccionario de palabras
+Cola<Letra> *cola = new Cola<Letra>(); // cola de palabras disponibles
 ABB *arbol = new ABB();
 Jugador jugador_uno;
+listaEnlazadaDobleCircular<Letra> *lista_jugador_uno = new listaEnlazadaDobleCircular<Letra>(); // lista para letras del jugador uno
 Jugador jugador_dos;
+listaEnlazadaDobleCircular<Letra> *lista_jugador_dos = new listaEnlazadaDobleCircular<Letra>(); // lista para letras del jugador dos
 
 int main()
 {
@@ -48,6 +52,7 @@ int main()
         cout << "*1.Agregar configuraciones*\n";
         cout << "*2.Agregar jugadores      *\n";
         cout << "*3.Seleccionar Jugador    *\n";
+        cout << "*4.Jugar                  *\n";
         cout << "*5.Reportes               *\n";
         cout << "*10.Salir*\n";
         cin >> opcion;
@@ -58,6 +63,7 @@ int main()
             cout << "ingrese el nombre del archivo de configuracion\n";
             cin >> ruta_configuracion;
             config(ruta_configuracion);
+            llenarColaAleatoria();
             system("pause");
 
             break;
@@ -132,21 +138,20 @@ int main()
                 }
                 break;
                 case 3:
-                if (jugador_uno.getUsuario()=="NULL" && jugador_dos.getUsuario()=="NULL"){
-                        cout<<"Ningun jugador seleccionado\n";
-
-                }
-                else if (jugador_uno.getUsuario()!="NULL" && jugador_dos.getUsuario()=="NULL"){
-                        cout <<"Jugador1: " + jugador_uno.getUsuario()+"\n";
-                        cout<<"Jugador 2 no seleccionado\n";
-
-                }
-                else if (jugador_uno.getUsuario()=="NULL" && jugador_dos.getUsuario()!="NULL"){
-                        cout<<"Jugador 1 no seleccionado\n";
-                        cout <<"Jugador2: " + jugador_dos.getUsuario()+"\n";
-                        
-
-                }
+                    if (jugador_uno.getUsuario() == "NULL" && jugador_dos.getUsuario() == "NULL")
+                    {
+                        cout << "Ningun jugador seleccionado\n";
+                    }
+                    else if (jugador_uno.getUsuario() != "NULL" && jugador_dos.getUsuario() == "NULL")
+                    {
+                        cout << "Jugador1: " + jugador_uno.getUsuario() + "\n";
+                        cout << "Jugador 2 no seleccionado\n";
+                    }
+                    else if (jugador_uno.getUsuario() == "NULL" && jugador_dos.getUsuario() != "NULL")
+                    {
+                        cout << "Jugador 1 no seleccionado\n";
+                        cout << "Jugador2: " + jugador_dos.getUsuario() + "\n";
+                    }
 
                     break;
 
@@ -160,6 +165,10 @@ int main()
             }
         }
         break;
+        case 4:
+            llenarListaDobles(lista_jugador_uno);
+
+            break;
         case 10:
 
             exit(-1);
@@ -179,9 +188,27 @@ int main()
                 cout << "6:Reporte recorrido Postorden ABB\n";
                 cout << "7:Reporte Puntaje por jugador\n";
                 cout << "8:Reporte Top puntuaciones\n";
+                cout << "9:Salir\n";
+                cin >> opcion_caso5;
+
+                switch (opcion_caso5)
+                {
+                case 2:
+                    graficarColaLetras();
+                    break;
+                case 9:
+
+                    bandera_caso5 = false;
+                    break;
+                default:
+                    break;
+                }
             }
         }
         break;
+        case 45:
+
+            break;
 
         default:
             break;
@@ -246,89 +273,318 @@ void llenarColaAleatoria()
 
     Cola<int> *lista_numeros = new Cola<int>();
     int num;
+    int a = 12, e = 12;
+    int o = 9;
+    int i = 6, s = 6;
+    int n = 5, r = 5, u = 5, t = 5, d = 5;
+    int l = 4, c = 4;
+    int g = 2, b = 2, m = 2, p = 2, h = 2;
+    int f = 1, v = 1, y = 1, q = 1, j = 1, enie = 1, x = 1, z = 1;
     srand(time(NULL));
-    while (cola->getSize() <= 25)
+    while (cola->getSize() <= 94)
     {
         num = 1 + rand() % (25 - 1);
         if (lista_numeros->buscar(num) == false)
         {
-            lista_numeros->Queue(num);
             switch (num)
             {
             case 1:
-                cola->Queue(*new Letra('A', 1, 12));
+                if (a > 0)
+                {
+                    cola->Queue(*new Letra('A', 1));
+                    a--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
                 break;
             case 2:
-                cola->Queue(*new Letra('E', 1, 12));
+                if (e > 0)
+                {
+                    cola->Queue(*new Letra('E', 1));
+                    i--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 3:
-                cola->Queue(*new Letra('O', 1, 9));
+                if (o > 0)
+                {
+                    cola->Queue(*new Letra('O', 1));
+                    o--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
                 break;
             case 4:
-                cola->Queue(*new Letra('I', 1, 6));
+                if (i > 0)
+                {
+                    cola->Queue(*new Letra('I', 1));
+                    i--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 5:
-                cola->Queue(*new Letra('S', 1, 6));
+                if (s > 0)
+                {
+                    cola->Queue(*new Letra('S', 1));
+                    s--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 6:
-                cola->Queue(*new Letra('N', 1, 5));
+                if (n > 0)
+                {
+                    cola->Queue(*new Letra('N', 1));
+                    n--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 7:
-                cola->Queue(*new Letra('L', 1, 4));
+                if (l > 0)
+                {
+                    cola->Queue(*new Letra('L', 1));
+                    l--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 8:
-                cola->Queue(*new Letra('R', 1, 5));
+                if (r > 0)
+                {
+                    cola->Queue(*new Letra('R', 1));
+                    r--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 9:
-                cola->Queue(*new Letra('U', 1, 5));
+                if (u > 0)
+                {
+                    cola->Queue(*new Letra('U', 1));
+                    u--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 10:
-                cola->Queue(*new Letra('T', 1, 4));
+                if (t > 0)
+                {
+                    cola->Queue(*new Letra('T', 1));
+                    t--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 11:
-                cola->Queue(*new Letra('D', 2, 5));
+                if (d > 0)
+                {
+                    cola->Queue(*new Letra('D', 2));
+                    d--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 12:
-                cola->Queue(*new Letra('G', 2, 2));
+                if (g > 0)
+                {
+                    cola->Queue(*new Letra('G', 2));
+                    g--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 13:
-                cola->Queue(*new Letra('C', 3, 4));
+                if (c > 0)
+                {
+                    cola->Queue(*new Letra('C', 3));
+                    c--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 14:
-                cola->Queue(*new Letra('B', 3, 2));
+                if (b > 0)
+                {
+                    cola->Queue(*new Letra('B', 3));
+                    b--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 15:
-                cola->Queue(*new Letra('M', 3, 2));
+                if (m > 0)
+                {
+                    cola->Queue(*new Letra('M', 3));
+                    m--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 16:
-                cola->Queue(*new Letra('P', 3, 2));
+                if (p > 0)
+                {
+                    cola->Queue(*new Letra('P', 3));
+                    p--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 17:
-                cola->Queue(*new Letra('H', 4, 1));
+                if (h > 0)
+                {
+                    cola->Queue(*new Letra('H', 4));
+                    h--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 18:
-                cola->Queue(*new Letra('F', 4, 1));
+                if (f > 0)
+                {
+                    cola->Queue(*new Letra('F', 4));
+                    f--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 19:
-                cola->Queue(*new Letra('V', 4, 1));
+                if (v > 0)
+                {
+                    cola->Queue(*new Letra('V', 4));
+                    v--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 20:
-                cola->Queue(*new Letra('Y', 4, 1));
+                if (y > 0)
+                {
+                    cola->Queue(*new Letra('Y', 4));
+                    y--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 21:
-                cola->Queue(*new Letra('Q', 5, 1));
+                if (q > o)
+                {
+                    cola->Queue(*new Letra('Q', 5));
+                    q--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 22:
-                cola->Queue(*new Letra('J', 8, 1));
+                if (j > 0)
+                {
+                    cola->Queue(*new Letra('J', 8));
+                    j--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
-            case 23:
-                cola->Queue(*new Letra('\65', 8, 1));
-                break;
+            /*case 23:
+                if (enie > 0)
+                {
+                    cola->Queue(*new Letra('\165', 8));
+                    enie--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
+                break;*/
             case 24:
-                cola->Queue(*new Letra('X', 8, 1));
+                if (x > 0)
+                {
+                    cola->Queue(*new Letra('X', 8));
+                    x--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
             case 25:
-                cola->Queue(*new Letra('Z', 10, 1));
+                if (z > 0)
+                {
+                    cola->Queue(*new Letra('Z', 10));
+                    z--;
+                }
+                else
+                {
+                    lista_numeros->Queue(num);
+                }
+
                 break;
 
             default:
@@ -338,15 +594,17 @@ void llenarColaAleatoria()
     }
     /*NodoCola<Letra> *temp_head = cola->getHead();
     NodoCola<Letra> *temp_tail = cola->getTail();
-
+    int contador = 1;
     while (temp_tail != temp_head)
     {
         cout << "Letra: " << temp_tail->getData().getLetra()
              << " Puntaje= " << temp_tail->getData().getPuntaje()
-             << " Cantidad= " << temp_tail->getData().getCantidad();
+             << " " << to_string(contador)
+             << "\n";
         temp_tail = temp_tail->getNext();
-    }*/
+        contador++;*/
 }
+
 void registrarUsuario(string user)
 {
 
@@ -358,4 +616,46 @@ void registrarUsuario(string user)
     //temp->setPuntajeUsuario(list);
 
     arbol->Add(temp);
+}
+
+void graficarColaLetras()
+{
+    int contador = 0;
+    NodoCola<Letra> *temp = cola->getTail();
+    string texto_cola = "digraph G { \n";
+    texto_cola += "node1 [shape=record, label = \"{ " ;
+
+    while (temp != NULL)
+    {
+        //cout<<"Letra: "<<temp->getData().getLetra()<< " Puntuacion: " <<temp->getData().getPuntaje()<<"-"<<contador<<"\n";
+        char letra = temp->getData().getLetra();
+        texto_cola += letra +to_string(temp->getData().getPuntaje()) + "Pts|";
+        temp = temp->getNext();
+        contador++;
+    }
+    texto_cola += "}\"]\n}";
+    ofstream ficheroSalida;
+    ficheroSalida.open("dot_s\\FichasDisponibles.dot");
+    ficheroSalida << texto_cola;
+    ficheroSalida.close();
+
+    system("dot -Tpng dot_s\\FichasDisponibles.dot -o imagenes\\FichasDisponibles.png");
+    system("imagenes\\FichasDisponibles.png &");
+
+
+}
+void llenarListaDobles(listaEnlazadaDobleCircular<Letra> *lista)
+{
+    if (cola->getSize() == 0)
+    {
+        cout << "La cola de letras esta vacia, por favor revise la configuraciones del juego";
+    }
+    else
+    {
+        while (lista->getIndex() <= 7)
+        {
+            lista->AddHead(cola->getHead()->getData());
+            cola->InQueue();
+        }
+    }
 }

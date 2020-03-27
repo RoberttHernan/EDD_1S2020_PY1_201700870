@@ -29,6 +29,7 @@ public:
     void SetNodo (NodoDCLL <T>);
     int getIndex();
     void setIndex(int);
+     NodoDCLL<T> *getHead ();
 
 };
 

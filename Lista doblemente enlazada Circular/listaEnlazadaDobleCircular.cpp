@@ -68,6 +68,10 @@ void listaEnlazadaDobleCircular  <T> ::Print(){
 }
 template <typename T>
 listaEnlazadaDobleCircular <T>::~listaEnlazadaDobleCircular (){}
+template <typename T>
+int listaEnlazadaDobleCircular<T>::getIndex(){return this->index;}
+template <typename T>
+NodoDCLL<T> * listaEnlazadaDobleCircular<T>::getHead(){return this->head;}
 
 
 
