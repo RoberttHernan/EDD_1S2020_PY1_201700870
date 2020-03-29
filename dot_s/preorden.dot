@@ -1,0 +1,5 @@
+digraph g {
+ rankdir=LR; 
+ node [shape = record]
+"Heidy"->"Carlos"->"Antonio"->"Eduardo"->"Rodrigo"
+}

@@ -37,13 +37,18 @@ public:
     
     bool IsEmpty(NodoArbol*);
 
-    void InOrden (NodoArbol *);
-    void Preorden(NodoArbol *);//raiz, izquierda, derecha
-    void PostOrden(NodoArbol *);//Izquierda, derecha, raiz
+    string InOrden (NodoArbol *);
+    void GraficarInorden();
+    string Preorden(NodoArbol *);//raiz, izquierda, derecha
+    void GraficarPreorden();
+    string PostOrden(NodoArbol *);//Izquierda, derecha, raiz
+    void GraficarPostorden();
 
 
     void mostrarJugadoresSimple ();// mostrara solo el listado de jugadores existentes
     string graphvizArbolSimple(NodoArbol * nodo);// regresa el texto intermedio del texto graphviz necesitado para graficar en la funcion mostrarJugadoresSimple();
+    
+    
     //Funciones Auxiliares
     //void Podar(Nodo<T> * & node);
 

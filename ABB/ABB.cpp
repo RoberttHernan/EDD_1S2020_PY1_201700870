@@ -2,7 +2,11 @@
 
 #include "ABB.h"
 using namespace std;
-string texto;
+string texto_arbol_grafica;
+string texto_preorden;
+string texto_inorden;
+string texto_postorden;
+int contador_temp=0;
 ABB::ABB()
 {
 
@@ -11,6 +15,7 @@ ABB::ABB()
     this->contador = 0;
     this->altura = 0;
 }
+int ABB::getContador(){return this->contador;}
 
 NodoArbol *ABB::getRoot()
 {
@@ -68,16 +73,7 @@ void ABB::Add(Jugador *data)
 
         padre->setRight(temp);
     }
-}
-
-void ABB::InOrden(NodoArbol *nodo)
-{
-    if (nodo != NULL)
-    {
-        InOrden(nodo->getLeft());
-        cout << nodo->getPlayer().getUsuario() << " ";
-        InOrden(nodo->getRight());
-    }
+    contador++;
 }
 
 /*void ABB::InOrden(NodoArbol *nodo)
@@ -126,7 +122,7 @@ bool ABB::buscar(string user)
 }
 Jugador ABB::buscarJugador(string user)
 {
-    Jugador * nulo = new Jugador();
+    Jugador *nulo = new Jugador();
     NodoArbol *padre = NULL;
     actual = root;
 
@@ -227,20 +223,25 @@ bool ABB<T>::buscar(T data)
     return false;
 }
 */
-string ABB::graphvizArbolSimple(NodoArbol *nodo)
+string ABB::graphvizArbolSimple(NodoArbol *nodo) // en preorden
 {
-    //string texto = "digraph Players { \n rankdir =TB \n node [style=Box] \n";
 
     if (nodo != NULL)
     {
+        texto_arbol_grafica += "\"" + nodo->getPlayer().getUsuario() + "\"\n";
+        if (nodo->getLeft() != NULL)
+        {
+            texto_arbol_grafica += "\"" + nodo->getPlayer().getUsuario() + "\"->\"" + nodo->getLeft()->getPlayer().getUsuario() + "\"\n";
+        }
+        if (nodo->getRight() != NULL)
+        {
+            texto_arbol_grafica += "\"" + nodo->getPlayer().getUsuario() + "\"->\"" + nodo->getRight()->getPlayer().getUsuario() + "\"\n";
+        }
 
         graphvizArbolSimple(nodo->getLeft());
-
-        texto += nodo->getPlayer().getUsuario() + "\n";
-
         graphvizArbolSimple(nodo->getRight());
     }
-    return texto;
+    return texto_arbol_grafica;
 }
 void ABB::mostrarJugadoresSimple()
 {
@@ -255,4 +256,110 @@ void ABB::mostrarJugadoresSimple()
 
     system("dot -Tpng mostrarJugadoresSimple.dot -o mostrarJugadoresSimple.png");
     system("mostrarJugadoresSimple.png &");
+    texto_arbol_grafica = "";
+}
+string ABB::Preorden(NodoArbol *nodo)
+{
+    if (nodo != NULL)
+    {
+        if (nodo == root)
+        {
+            texto_preorden += "\"" + nodo->getPlayer().getUsuario() + "\"";
+        }
+        else
+        {
+            texto_preorden += "->\"" + nodo->getPlayer().getUsuario() + "\"";
+        }
+
+        Preorden(nodo->getLeft());
+        Preorden(nodo->getRight());
+    }
+    return texto_preorden;
+}
+void ABB::GraficarPreorden()
+{
+    NodoArbol *raiz = this->root;
+    string temp = Preorden(raiz);
+
+    string text = "digraph g {\n rankdir=LR; \n node [shape = record]\n" + temp + "\n}";
+    ofstream ficheroSalida;
+    ficheroSalida.open("dot_s\\preorden.dot");
+    ficheroSalida << text;
+    ficheroSalida.close();
+
+    system("dot -Tpng dot_s\\preorden.dot -o imagenes\\preorden.png");
+    system("imagenes\\preorden.png &");
+    texto_preorden = "";
+}
+string ABB::InOrden(NodoArbol *nodo)
+{
+    if (nodo != NULL)
+    {
+        InOrden(nodo->getLeft());
+
+        if (contador_temp == contador-1)
+        {
+            texto_inorden += "\"" + nodo->getPlayer().getUsuario() + "\"";
+        }
+        else
+        {
+            texto_inorden += "\"" + nodo->getPlayer().getUsuario() + "\"->";
+            contador_temp++;
+        }
+
+        InOrden(nodo->getRight());
+    }
+    return texto_inorden;
+}
+void ABB::GraficarInorden()
+{
+    NodoArbol *raiz = this->root;
+    string temp = InOrden(raiz);
+
+    string text = "digraph g {\n rankdir=LR; \n node [shape = record]\n" + temp + "\n}";
+    ofstream ficheroSalida;
+    ficheroSalida.open("dot_s\\inorden.dot");
+    ficheroSalida << text;
+    ficheroSalida.close();
+
+    system("dot -Tpng dot_s\\inorden.dot -o imagenes\\inorden.png");
+    system("imagenes\\inorden.png &");
+    texto_inorden = "";
+    contador_temp = 0;
+}
+string ABB::PostOrden(NodoArbol *nodo)
+{
+    if (nodo!=NULL)
+    {
+        PostOrden(nodo->getLeft());
+        PostOrden(nodo->getRight());
+
+        if (contador_temp == contador-1)
+        {
+            texto_postorden += "\"" + nodo->getPlayer().getUsuario() + "\"";
+        }
+        else
+        {
+            texto_postorden += "\"" + nodo->getPlayer().getUsuario() + "\"->";
+            contador_temp++;
+        }
+        
+    }
+    return texto_postorden;
+}
+void ABB::GraficarPostorden()
+{
+    NodoArbol *raiz = this->root;
+    string temp = PostOrden(raiz);
+
+    string text = "digraph g {\n rankdir=LR; \n node [shape = record]\n" + temp + "\n}";
+    ofstream ficheroSalida;
+    ficheroSalida.open("dot_s\\postorden.dot");
+    ficheroSalida << text;
+    ficheroSalida.close();
+
+    system("dot -Tpng dot_s\\postorden.dot -o imagenes\\postorden.png");
+    system("imagenes\\postorden.png &");
+    texto_postorden = "";
+    contador_temp = 0;
 }

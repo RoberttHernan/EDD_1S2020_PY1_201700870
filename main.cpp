@@ -19,17 +19,20 @@ using namespace std;
 using json = nlohmann::json;
 
 void config(string ruta);
+void graficarDiccionario();
 void imprimirListaConfiguraciones();
 void llenarColaAleatoria();
 void registrarUsuario(string user);
 void graficarColaLetras();
 void llenarListaDobles(listaEnlazadaDobleCircular<Letra> *lista); // funcion que llenara las listad circulares dobles de fichas para los jugadores a partir de la cola
+void graficarListasJugadores(listaEnlazadaDobleCircular<Letra> * lista_jugador);
+
 
 int dimension;                                                      // entero M que guarda la dimension M*M del tablero de juego
 listaSimple<Casillas> *listaCasillas = new listaSimple<Casillas>(); //Guarda la configuracion de las casillas del juego
 //lista Doblemente enlazada circular que guardara las palabras del juego
-listaEnlazadaDobleCircular<string> *listaPalabras = new listaEnlazadaDobleCircular<string>();//diccionario de palabras
-Cola<Letra> *cola = new Cola<Letra>(); // cola de palabras disponibles
+listaEnlazadaDobleCircular<string> *listaPalabras = new listaEnlazadaDobleCircular<string>(); //diccionario de palabras
+Cola<Letra> *cola = new Cola<Letra>(); // cola de fichas disponibles
 ABB *arbol = new ABB();
 Jugador jugador_uno;
 listaEnlazadaDobleCircular<Letra> *lista_jugador_uno = new listaEnlazadaDobleCircular<Letra>(); // lista para letras del jugador uno
@@ -39,6 +42,11 @@ listaEnlazadaDobleCircular<Letra> *lista_jugador_dos = new listaEnlazadaDobleCir
 int main()
 {
 
+    arbol->Add(new Jugador("Heidy"));
+    arbol->Add(new Jugador("Carlos"));
+    arbol->Add(new Jugador("Antonio"));
+    arbol->Add(new Jugador("Eduardo"));
+    arbol->Add(new Jugador("Rodrigo"));
     bool bandera = true;
     int opcion;
     string ruta_configuracion;
@@ -92,7 +100,6 @@ int main()
         break;
         case 3:
         {
-            arbol->mostrarJugadoresSimple();
             bool bandera_caso3 = true;
             int opcion_caso3;
             while (bandera_caso3)
@@ -167,6 +174,8 @@ int main()
         break;
         case 4:
             llenarListaDobles(lista_jugador_uno);
+            cout<<"Lista para jugador uno llena";
+            graficarListasJugadores(lista_jugador_uno);
 
             break;
         case 10:
@@ -180,8 +189,8 @@ int main()
 
             while (bandera_caso5)
             {
-                cout << "1:Reporte de palabras\n";
-                cout << "2:Reporte de Fichas disponibles\n";
+                cout << "1:Reporte de palabras(Diccionario)\n";
+                cout << "2:Reporte de Fichas disponibles\n"; // done
                 cout << "3:Reporte de Jugadores( Arbol binario)\n";
                 cout << "4:Reporte recorrido Preorden ABB\n";
                 cout << "5:Reporte recorrido Inorden ABB\n";
@@ -193,9 +202,27 @@ int main()
 
                 switch (opcion_caso5)
                 {
+                case 1:
+                    graficarDiccionario();
+                    break;
                 case 2:
                     graficarColaLetras();
                     break;
+                case 3:
+                    arbol->mostrarJugadoresSimple();
+                    break;
+                case 4:
+                    arbol->GraficarPreorden();
+                    break;
+                case 5:
+                {
+                    arbol->GraficarInorden();
+                }
+
+                break;
+                case 6:
+                    arbol->GraficarPostorden();
+                break;
                 case 9:
 
                     bandera_caso5 = false;
@@ -623,13 +650,13 @@ void graficarColaLetras()
     int contador = 0;
     NodoCola<Letra> *temp = cola->getTail();
     string texto_cola = "digraph G { \n";
-    texto_cola += "node1 [shape=record, label = \"{ " ;
+    texto_cola += "node1 [shape=record, label = \"{ ";
 
     while (temp != NULL)
     {
         //cout<<"Letra: "<<temp->getData().getLetra()<< " Puntuacion: " <<temp->getData().getPuntaje()<<"-"<<contador<<"\n";
         char letra = temp->getData().getLetra();
-        texto_cola += letra +to_string(temp->getData().getPuntaje()) + "Pts|";
+        texto_cola += letra + to_string(temp->getData().getPuntaje()) + "Pts|";
         temp = temp->getNext();
         contador++;
     }
@@ -641,8 +668,6 @@ void graficarColaLetras()
 
     system("dot -Tpng dot_s\\FichasDisponibles.dot -o imagenes\\FichasDisponibles.png");
     system("imagenes\\FichasDisponibles.png &");
-
-
 }
 void llenarListaDobles(listaEnlazadaDobleCircular<Letra> *lista)
 {
@@ -658,4 +683,74 @@ void llenarListaDobles(listaEnlazadaDobleCircular<Letra> *lista)
             cola->InQueue();
         }
     }
+}
+void graficarDiccionario()
+{
+    int contador = 1;
+    NodoDCLL<string> *temp = listaPalabras->getHead();
+    string texto = "digraph G {\n rankdir=LR \n node[shape=box] \n";
+    string texto1;
+    string texto2;
+
+    while (contador <= listaPalabras->getIndex())
+    {
+        texto1 += "node" + to_string(contador) + "[label = \"" + temp->getData() + "\"]\n";
+
+        if (contador == listaPalabras->getIndex())
+        {
+            texto2 += "node" + to_string(contador) + "->node1 [dir=both]\n";
+        }
+        else
+        {
+            texto2 += "node" + to_string(contador) + "->";
+        }
+
+        temp = temp->getNext();
+        contador++;
+    }
+    texto += texto1 + texto2 + "\n}\n";
+
+    ofstream ficheroSalida;
+    ficheroSalida.open("dot_s\\diccionario.dot");
+    ficheroSalida << texto;
+    ficheroSalida.close();
+
+    system("dot -Tpng dot_s\\diccionario.dot -o imagenes\\diccionario.png");
+    system("imagenes\\diccionario.png &");
+}
+void graficarListasJugadores(listaEnlazadaDobleCircular<Letra> * lista_jugador){
+
+    int contador = 1;
+    NodoDCLL<Letra> *temp = lista_jugador->getHead();
+    string texto = "digraph G {\n rankdir=LR \n node[shape=box] \n";
+    string texto1;
+    string texto2;
+
+    while (contador <= lista_jugador->getIndex())
+    {
+        texto1 += "node" + to_string(contador) + "[label = \"" + temp->getData().getLetra() + "\"]\n";
+
+        if (contador == lista_jugador->getIndex())
+        {
+            texto2 += "node" + to_string(contador) + "[dir=both];\n";
+        }
+        else
+        {
+            texto2 += "node" + to_string(contador) + "->";
+        }
+
+        temp = temp->getNext();
+        contador++;
+    }
+    texto += texto1 + texto2 + "\n}\n";
+
+    ofstream ficheroSalida;
+    ficheroSalida.open("dot_s\\lista_letras_player_uno.dot");
+    ficheroSalida << texto;
+    ficheroSalida.close();
+
+    system("dot -Tpng dot_s\\lista_letras_player_uno.dot -o imagenes\\lista_letras_player_uno.png");
+    system("imagenes\\lista_letras_player_uno.png &");
+    
+
 }

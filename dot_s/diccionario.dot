@@ -1,0 +1,12 @@
+digraph G {
+ rankdir=LR 
+ node[shape=box] 
+node1[label = "go"]
+node2[label = "Light"]
+node3[label = "Estrella"]
+node4[label = "Amor"]
+node5[label = "Paz"]
+node6[label = "Hola"]
+node1->node2->node3->node4->node5->node6->node1 [dir=both]
+
+}
