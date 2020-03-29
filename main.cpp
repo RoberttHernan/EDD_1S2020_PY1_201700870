@@ -14,6 +14,7 @@
 #include "Cola/Cola.cpp"
 #include "Otra Clases/Letra.cpp"
 #include "ABB/ABB.cpp"
+#include "Matriz Dispersa/Matriz.cpp"
 
 using namespace std;
 using json = nlohmann::json;
@@ -25,14 +26,13 @@ void llenarColaAleatoria();
 void registrarUsuario(string user);
 void graficarColaLetras();
 void llenarListaDobles(listaEnlazadaDobleCircular<Letra> *lista); // funcion que llenara las listad circulares dobles de fichas para los jugadores a partir de la cola
-void graficarListasJugadores(listaEnlazadaDobleCircular<Letra> * lista_jugador);
-
+void graficarListasJugadores(listaEnlazadaDobleCircular<Letra> *lista_jugador);
 
 int dimension;                                                      // entero M que guarda la dimension M*M del tablero de juego
 listaSimple<Casillas> *listaCasillas = new listaSimple<Casillas>(); //Guarda la configuracion de las casillas del juego
 //lista Doblemente enlazada circular que guardara las palabras del juego
 listaEnlazadaDobleCircular<string> *listaPalabras = new listaEnlazadaDobleCircular<string>(); //diccionario de palabras
-Cola<Letra> *cola = new Cola<Letra>(); // cola de fichas disponibles
+Cola<Letra> *cola = new Cola<Letra>();                                                        // cola de fichas disponibles
 ABB *arbol = new ABB();
 Jugador jugador_uno;
 listaEnlazadaDobleCircular<Letra> *lista_jugador_uno = new listaEnlazadaDobleCircular<Letra>(); // lista para letras del jugador uno
@@ -42,7 +42,7 @@ listaEnlazadaDobleCircular<Letra> *lista_jugador_dos = new listaEnlazadaDobleCir
 int main()
 {
 
-    arbol->Add(new Jugador("Heidy"));
+   /* arbol->Add(new Jugador("Heidy"));
     arbol->Add(new Jugador("Carlos"));
     arbol->Add(new Jugador("Antonio"));
     arbol->Add(new Jugador("Eduardo"));
@@ -174,8 +174,7 @@ int main()
         break;
         case 4:
             llenarListaDobles(lista_jugador_uno);
-            cout<<"Lista para jugador uno llena";
-            graficarListasJugadores(lista_jugador_uno);
+            cout << "Lista para jugador uno llena";
 
             break;
         case 10:
@@ -197,7 +196,8 @@ int main()
                 cout << "6:Reporte recorrido Postorden ABB\n";
                 cout << "7:Reporte Puntaje por jugador\n";
                 cout << "8:Reporte Top puntuaciones\n";
-                cout << "9:Salir\n";
+                cout << "9:Reporte de fichas por Jugador";
+                cout << "10:Salir\n";
                 cin >> opcion_caso5;
 
                 switch (opcion_caso5)
@@ -222,10 +222,42 @@ int main()
                 break;
                 case 6:
                     arbol->GraficarPostorden();
-                break;
+                    break;
                 case 9:
+                {
+                    bool bandera_caso9 = true;
+                    int opcion_caso9;
+                    while (bandera_caso9)
+                    {
+                        cout << "1:Jugador uno\n";
+                        cout << "2:Jugador dos\n";
+                        cout << "3:Salir\n";
+                        cin >> opcion_caso9;
 
+                        switch (opcion_caso9)
+                        {
+                        case 1:
+                            graficarListasJugadores(lista_jugador_uno);
+
+                            break;
+                        case 2:
+                            graficarListasJugadores(lista_jugador_dos);
+                            break;
+
+                        case 3:
+                        bandera_caso9 = false ;
+                        break;
+                        default:
+                        
+                            break;
+                        }
+                    }
+                }
+
+                break;
+                case 10:
                     bandera_caso5 = false;
+
                     break;
                 default:
                     break;
@@ -233,14 +265,17 @@ int main()
             }
         }
         break;
-        case 45:
-
-            break;
 
         default:
             break;
         }
     }
+*/
+
+    Matriz<string> * matriz = new Matriz<string> ();
+    matriz->AddElement("H",2,3);
+    matriz->borrarNodo(2,3);
+    matriz->textoGraphviz();
 
     return 0;
 }
@@ -718,7 +753,8 @@ void graficarDiccionario()
     system("dot -Tpng dot_s\\diccionario.dot -o imagenes\\diccionario.png");
     system("imagenes\\diccionario.png &");
 }
-void graficarListasJugadores(listaEnlazadaDobleCircular<Letra> * lista_jugador){
+void graficarListasJugadores(listaEnlazadaDobleCircular<Letra> *lista_jugador)
+{
 
     int contador = 1;
     NodoDCLL<Letra> *temp = lista_jugador->getHead();
@@ -751,6 +787,4 @@ void graficarListasJugadores(listaEnlazadaDobleCircular<Letra> * lista_jugador){
 
     system("dot -Tpng dot_s\\lista_letras_player_uno.dot -o imagenes\\lista_letras_player_uno.png");
     system("imagenes\\lista_letras_player_uno.png &");
-    
-
 }
