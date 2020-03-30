@@ -2,10 +2,20 @@ digraph {
  node [shape = rectangle]; 
  rankdir=LR; 
  noder[label ="Root"];
+nodeCol_1[label="Col 1"];
+nodeFil_1[label="Fil 1"];
+node1_1[label ="T"];
+nodeFil_2[label="Fil 2"];
+node1_2[label ="U"];
 
-noder
+noder->nodeCol_1[dir =both];
+nodeFil_1->node1_1[dir =both];
+nodeFil_2->node1_2[dir =both];
 
-noder
+noder->nodeFil_1->nodeFil_2[dir =both];
+nodeCol_1->node1_1->node1_2[dir =both];
 
+{rank=same noder,nodeFil_1,nodeFil_2}
+{rank = same nodeCol_1,node1_1,node1_2}
  
  }

@@ -29,22 +29,83 @@
     },
     "diccionario":[
         {
-            "Palabra":"Hola"
+            "Palabra":"HOLA"
         },
         {
-            "Palabra":"Paz"
+            "Palabra":"PAZ"
         },
         {
-            "Palabra":"Amor"
+            "Palabra":"AMOR"
         },
         {
-            "Palabra":"Estrella"
+            "Palabra":"EL"
         },
         {
-            "Palabra":"Light"
+            "Palabra":"PROYECTO"
         },
         {
-            "Palabra":"go"
+            "Palabra":"LA"
+        },
+        {
+            "Palabra":"LAS"
+        },
+        {
+            "Palabra":"ELLOS"
+        },
+        {
+            "Palabra":"ELLAS"
+        },
+        {
+            "Palabra":"PERRO"
+        },
+        {
+            "Palabra":"OSO"
+        },
+        {
+            "Palabra":"POZO"
+        },
+        {
+            "Palabra":"MOTA"
+        },
+        {
+            "Palabra":"PAPEL"
+        },
+        {
+            "Palabra":"CASA"
+        },
+        {
+            "Palabra":"CAZA"
+        },
+        {
+            "Palabra":"TAZA"
+        },
+        {
+            "Palabra":"OYO"
+        },
+        {
+            "Palabra":"TE"
+        },
+        {
+            "Palabra":"SE"
+        },
+        {
+            "Palabra":"ME"
+        },
+        {
+            "Palabra":"MESA"
+        },
+        {
+            "Palabra":"GANZO"
+        },
+        {
+            "Palabra":"GOL"
+        },
+        {
+            "Palabra":"MONO"
+        },
+        {
+            "Palabra":"CONO"
         }
+        
     ]
 }

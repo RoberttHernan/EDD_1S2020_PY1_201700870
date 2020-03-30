@@ -21,8 +21,10 @@ public:
     listaEnlazadaDobleCircular(/* args */);
     ~listaEnlazadaDobleCircular();
 
-    void AddHead(T);
-    void Print();
+    void AddHead(T);//añade un nodo en el frente de la lista
+    void Print();// imprime la lista
+    bool buscar(T);//busca un dato en la lista y retorna un valor booleando al encontrarlos
+    void borrar(T data);// borrar primera coincidencia de un dato encontrado
     
 
     NodoDCLL<T> *getNodo ();

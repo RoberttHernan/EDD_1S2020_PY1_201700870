@@ -13,6 +13,9 @@ Letra::Letra(char letra, int puntaje)
     this->puntaje = puntaje;
 
 }
+Letra::Letra(char letra){
+    this->letra = letra;
+}
 Letra::~Letra()
 {
 }

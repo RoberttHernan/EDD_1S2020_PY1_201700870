@@ -43,28 +43,106 @@ void listaEnlazadaDobleCircular <T>::AddHead(T data)
 
 }
 template <typename T>
-void listaEnlazadaDobleCircular  <T> ::Print(){
-    NodoDCLL <T> *temp = head;
-    if(head==NULL){
-        cout <<"Lista Vacia"<<endl;
+void listaEnlazadaDobleCircular<T>::Print()
+{
+    NodoDCLL<T> *temp = head;
+    if (head == NULL)
+    {
+        cout << "Lista Vacia" << endl;
     }
-    else {
-        cout <<"head";
+    else
+    {
         do
         {
-            
+
             temp->print();
-            
-            if(temp->getNext()==head){
-                cout <<"tail";
-               
+
+            if (temp->getNext() == head)
+            {
+                temp->getNext()->print();
             }
-             temp = temp->getNext();
-             
-        } while (temp!=head);
-        
+            temp = temp->getNext();
+
+        } while (temp != head);
     }
-    cout << endl << endl;
+    cout << endl
+         << endl;
+}
+template <typename T>
+bool listaEnlazadaDobleCircular<T>::buscar(T data)
+{
+    NodoDCLL<T> *temp = head;
+    int contador = 1;
+    while (contador <= index)
+    {
+        if (temp->getData() == data)
+        {
+            return true;
+        }
+        temp = temp->getNext();
+        contador++;
+    }
+    return false;
+}
+template <typename T>
+void listaEnlazadaDobleCircular<T>::borrar(T data)
+{
+    NodoDCLL<T> *temp = head;
+    int contador = 1;
+
+    while (temp->getData() != data && contador <= index)
+    {
+        temp = temp->getNext();
+        contador++;
+    }
+    if (contador > index)
+    {
+        return;
+    }
+    else
+    {
+        if (temp == head)
+        {
+            if (index != 1)
+            {
+                head = temp->getNext();
+                temp->getNext()->setPrev(tail);
+                tail->setNext(temp->getNext());
+                temp->setNext(NULL);
+                temp->setPrev(NULL);
+                free(temp);
+                index--;
+                return;
+            }
+            else
+            {
+               head = NULL;
+               tail =NULL;
+               index =0;
+                return;
+            }
+        
+        }
+        else if (temp == tail){
+            tail = temp->getPrev();
+            tail->setNext(head);
+            head->setPrev(tail);
+            temp->setNext(NULL);
+            temp->setPrev(NULL);
+            free(temp);
+            index--;
+            return;
+        }
+        else{
+            temp->getPrev()->setNext(temp->getNext());
+            temp->getNext()->setPrev(temp->getPrev());
+            temp->setNext(NULL);
+            temp->setPrev(NULL);
+            free(temp);
+            index--;
+            return;
+        }
+    }
 }
 template <typename T>
 listaEnlazadaDobleCircular <T>::~listaEnlazadaDobleCircular (){}

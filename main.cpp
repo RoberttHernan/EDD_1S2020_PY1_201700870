@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <cstring>
 
 #include "configJson/json.hpp"
 //#include "lista Simple/listaSimple.cpp"
@@ -27,8 +28,11 @@ void registrarUsuario(string user);
 void graficarColaLetras();
 void llenarListaDobles(listaEnlazadaDobleCircular<Letra> *lista); // funcion que llenara las listad circulares dobles de fichas para los jugadores a partir de la cola
 void graficarListasJugadores(listaEnlazadaDobleCircular<Letra> *lista_jugador);
+bool buscarLetraEnListaJugador(listaEnlazadaDobleCircular<Letra> *lista, string letra); // busca una letra especifica en la lista de letras de un jugador
+string ToUpperCase(string st1);
 
-int dimension;                                                      // entero M que guarda la dimension M*M del tablero de juego
+int dimension;  // entero M que guarda la dimension M*M del tablero de juego
+int turno = 1;   // entero que maneja en que turno estamos, 1 = jugador uno, 2= jugador 2
 listaSimple<Casillas> *listaCasillas = new listaSimple<Casillas>(); //Guarda la configuracion de las casillas del juego
 //lista Doblemente enlazada circular que guardara las palabras del juego
 listaEnlazadaDobleCircular<string> *listaPalabras = new listaEnlazadaDobleCircular<string>(); //diccionario de palabras
@@ -38,11 +42,13 @@ Jugador jugador_uno;
 listaEnlazadaDobleCircular<Letra> *lista_jugador_uno = new listaEnlazadaDobleCircular<Letra>(); // lista para letras del jugador uno
 Jugador jugador_dos;
 listaEnlazadaDobleCircular<Letra> *lista_jugador_dos = new listaEnlazadaDobleCircular<Letra>(); // lista para letras del jugador dos
+Matriz<string> * tablero = new Matriz<string> ();// Matriz que simulara el tablero de juego
+listaSimple<Casillas> *listaCasillasTemp = new listaSimple<Casillas>();// lista simple que almacena las casillas temporales de insercion de datos en el tablero
 
 int main()
 {
 
-   /* arbol->Add(new Jugador("Heidy"));
+    arbol->Add(new Jugador("Heidy"));
     arbol->Add(new Jugador("Carlos"));
     arbol->Add(new Jugador("Antonio"));
     arbol->Add(new Jugador("Eduardo"));
@@ -107,7 +113,8 @@ int main()
                 cout << "1: Seleccionar jugador 1\n";
                 cout << "2: Seleccionar jugador 2\n";
                 cout << "3: Ver jugadores actuales \n";
-                cout << "4: Salir\n";
+                cout << "4: Ver lista de Usuarios\n";
+                cout << "5: Salir\n";
                 cin >> opcion_caso3;
                 switch (opcion_caso3)
                 {
@@ -159,10 +166,19 @@ int main()
                         cout << "Jugador 1 no seleccionado\n";
                         cout << "Jugador2: " + jugador_dos.getUsuario() + "\n";
                     }
+                    else
+                    {
+                        cout << "Jugador1: " + jugador_uno.getUsuario() + "\n";
+                        cout << "Jugador2: " + jugador_dos.getUsuario() + "\n";
+                    }
 
                     break;
 
                 case 4:
+                    arbol->mostrarJugadoresSimple();
+
+                    break;
+                case 5:
                     bandera_caso3 = false;
 
                     break;
@@ -173,8 +189,98 @@ int main()
         }
         break;
         case 4:
-            llenarListaDobles(lista_jugador_uno);
-            cout << "Lista para jugador uno llena";
+
+            if (jugador_uno.getUsuario() == "NULL" || jugador_dos.getUsuario() == "NULL")
+            {
+                cout << "Seleccione dos jugadores para iniciar partida!!\n";
+            }
+            else
+            {
+                bool caso_4 = true;
+                int opcion_caso4;
+
+                while (caso_4)
+                {
+                    cout << "1. Repartir fichas\n";
+                    cout << "2. Turno " + jugador_uno.getUsuario() + "\n";
+                    cout << "3. Turno " + jugador_dos.getUsuario() + "\n";
+                    cout << "4. Terminar Partida\n";
+                    cin >> opcion_caso4;
+
+                    switch (opcion_caso4)
+                    {
+                    case 1:
+                    {
+                        llenarListaDobles(lista_jugador_uno);
+                        llenarListaDobles(lista_jugador_dos);
+                    }
+
+                    break;
+                    case 2:
+                    {
+                        bool bandera_4_2 = true;
+                        int caso4_2;
+                        while (bandera_4_2)
+                        {
+                            cout << "1:Colocar letra\n";
+                            cout << "2:Ver fichas disponibles \n";
+                            cout << "3:Terminar turno \n";
+                            cin >> caso4_2;
+                            switch (caso4_2)
+                            {
+                            case 1:
+                            {
+                                string letra;
+                                int x;
+                                int y;
+
+                                cout << "Ingresa la letra\n";
+                                cin >> letra;
+                                cout << "ingresa la columna (x)\n";
+                                cin >> x;
+                                cout << "Ingresa la fila (y)\n";
+                                cin >> y;
+
+                                if (x > dimension || y > dimension)
+                                {
+                                    cout << "Error de dimension de casilla";
+                                }
+                                else if (!buscarLetraEnListaJugador(lista_jugador_uno, letra))
+                                {
+                                    cout << "Error, letra no disponible en tu lista de fichas\n";
+                                }
+                                else
+                                {
+                                    //cout << "Turno Valido\n";
+                                    tablero->AddElement(letra, x, y);
+                                    listaCasillasTemp->AddHead(*new Casillas("simple", x, y));
+                                    tablero->textoGraphviz();
+                                    system("pause");
+                                }
+                            }
+
+                            break;
+                            case 2:
+                                graficarListasJugadores(lista_jugador_uno);
+                                break;
+                            case 3:
+                                bandera_4_2 = false;
+                                break;
+
+                            default:
+                                cout << "Seleccion invalida >:| \n";
+                                break;
+                            }
+                        }
+                    }
+                    break;
+
+                    default:
+                    cout << "Seleccion invalida >:| \n";
+                        break;
+                    }
+                }
+            }
 
             break;
         case 10:
@@ -237,18 +343,18 @@ int main()
                         switch (opcion_caso9)
                         {
                         case 1:
-                            graficarListasJugadores(lista_jugador_uno);
+                            graficarListasJugadores(lista_jugador_uno); //lista de fichas disponibles
 
                             break;
                         case 2:
-                            graficarListasJugadores(lista_jugador_dos);
+                            graficarListasJugadores(lista_jugador_dos); //lista de fichas disponibles
                             break;
 
                         case 3:
-                        bandera_caso9 = false ;
-                        break;
+                            bandera_caso9 = false;
+                            break;
                         default:
-                        
+
                             break;
                         }
                     }
@@ -267,15 +373,11 @@ int main()
         break;
 
         default:
+            cout << "Seleccion invalida >:| \n";
+            system("pause");
             break;
         }
     }
-*/
-
-    Matriz<string> * matriz = new Matriz<string> ();
-    matriz->AddElement("H",2,3);
-    matriz->borrarNodo(2,3);
-    matriz->textoGraphviz();
 
     return 0;
 }
@@ -307,7 +409,8 @@ void config(string ruta)
         }
         for (int i = 0; i < j3.at("diccionario").size(); i++)
         {
-            listaPalabras->AddHead(j3.at("diccionario")[i].at("Palabra"));
+            string temp = ToUpperCase(j3.at("diccionario")[i].at("Palabra"));
+            listaPalabras->AddHead(temp);
         }
         cout << "Dimension, casillas dobles, casillas triples y Diccionario configurado \n";
         cout << " ";
@@ -712,7 +815,7 @@ void llenarListaDobles(listaEnlazadaDobleCircular<Letra> *lista)
     }
     else
     {
-        while (lista->getIndex() <= 7)
+        while (lista->getIndex() <= 6)
         {
             lista->AddHead(cola->getHead()->getData());
             cola->InQueue();
@@ -787,4 +890,85 @@ void graficarListasJugadores(listaEnlazadaDobleCircular<Letra> *lista_jugador)
 
     system("dot -Tpng dot_s\\lista_letras_player_uno.dot -o imagenes\\lista_letras_player_uno.png");
     system("imagenes\\lista_letras_player_uno.png &");
+}
+bool buscarLetraEnListaJugador(listaEnlazadaDobleCircular<Letra> *lista, string data)
+{
+    NodoDCLL<Letra> *temp = lista->getHead();
+    int contador = 1;
+    
+    while (contador <= lista->getIndex())
+    {
+        
+        string s (1,temp->getData().getLetra());
+        if (s== data)
+        {
+            return true;
+        }
+        temp = temp->getNext();
+        contador++;
+    }
+}
+
+string convertToString(char* a, int size) 
+{ 
+    int i; 
+    string s = ""; 
+    for (i = 0; i < size; i++) { 
+        s = s + a[i]; 
+    } 
+    return s; 
+} 
+
+bool match(listaSimple<Casillas> *lista)// funcion que hace el match para verificar la validez de las palabras en el tablero 
+{
+	Nodo<Casillas> *temp = lista->getHead();
+	int contador = 0;
+
+	while (temp != NULL)
+	{
+		int x = temp->getData().get_x();
+		int y = temp->getData().get_y();
+
+		string temp1 = tablero->buscarPalabraMatriz_x(x);
+		string temp2 = tablero->buscarPalabraMatriz_y(y);
+
+		if (!listaPalabras->buscar(temp1) && !listaPalabras->buscar(temp2))
+		{
+			contador++;
+		}
+		temp = temp->getNext();
+	}
+	if (contador == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+string ToUpperCase(string st1)
+{
+	char s[50];
+	int i;
+	int j;
+
+	for (int j = 0; j <= st1.size(); j++)
+	{
+		s[j] = st1[j];
+	}
+
+	for (int i = 0; i<= sizeof(s); i++)
+
+	
+	{
+
+		if (s[i] >= 97 && s[i] <= 122)
+		{
+			s[i] = s[i] - 32;
+		}
+		j++;
+	}
+	
+	return s;
 }

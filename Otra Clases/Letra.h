@@ -8,6 +8,7 @@ private:
     int puntaje;
 public:
     Letra();
+    Letra(char);
     Letra(char, int);
     ~Letra();
     char getLetra();
