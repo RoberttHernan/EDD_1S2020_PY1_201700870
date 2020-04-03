@@ -105,7 +105,22 @@
         },
         {
             "Palabra":"CONO"
-        }
+        },
+        {
+            "Palabra":"ORO"
+        },
+        {
+            "Palabra":"loro"
+        },
+        {
+            "Palabra":"POrO"
+        },
+        {
+			"palabra": "hola"
+		}
+        
+        
+
         
     ]
 }

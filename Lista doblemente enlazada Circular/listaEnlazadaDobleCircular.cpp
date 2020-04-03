@@ -145,12 +145,86 @@ void listaEnlazadaDobleCircular<T>::borrar(T data)
     }
 }
 template <typename T>
+void listaEnlazadaDobleCircular<T>::borrarNodo(NodoDCLL<T> *temp)
+{
+
+    if (temp == NULL)
+    {
+        return;
+    }
+    else{
+         if (temp == head)
+        {
+            if (index != 1)
+            {
+                head = temp->getNext();
+                temp->getNext()->setPrev(tail);
+                tail->setNext(temp->getNext());
+                temp->setNext(NULL);
+                temp->setPrev(NULL);
+                free(temp);
+                index--;
+                return;
+            }
+            else
+            {
+                head = NULL;
+                tail = NULL;
+                index = 0;
+                return;
+            }
+        }
+        else if (temp == tail)
+        {
+            tail = temp->getPrev();
+            tail->setNext(head);
+            head->setPrev(tail);
+            temp->setNext(NULL);
+            temp->setPrev(NULL);
+            free(temp);
+            index--;
+            return;
+        }
+        else
+        {
+            temp->getPrev()->setNext(temp->getNext());
+            temp->getNext()->setPrev(temp->getPrev());
+            temp->setNext(NULL);
+            temp->setPrev(NULL);
+            free(temp);
+            index--;
+            return;
+        }
+    }
+        
+}
+template <typename T>
+void listaEnlazadaDobleCircular<T>::borrarLista(){
+    NodoDCLL<T> *temp = head;
+
+    while (index>0){
+        borrarNodo(temp);
+        temp = head;
+    }
+
+
+}
+template <typename T>
 listaEnlazadaDobleCircular <T>::~listaEnlazadaDobleCircular (){}
 template <typename T>
 int listaEnlazadaDobleCircular<T>::getIndex(){return this->index;}
 template <typename T>
 NodoDCLL<T> * listaEnlazadaDobleCircular<T>::getHead(){return this->head;}
-
+template <typename T>
+NodoDCLL<T> * listaEnlazadaDobleCircular<T>::getTail(){return this->tail;}
+template <typename T>
+void listaEnlazadaDobleCircular<T>::setIndex(int index){
+    this->index = index;
+}
+template <typename T>
+void listaEnlazadaDobleCircular<T>::setHead(NodoDCLL<T> *head){
+    this->head = head;
+}
 
 
 

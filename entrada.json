@@ -1,0 +1,584 @@
+{
+	"dimension":20,
+	"casillas":{
+		"dobles":[
+			{
+				"x":2,
+				"y":5
+			},
+			{
+				"x":4,
+				"y":10
+			},
+			{
+				"x":10,
+				"y":15
+			},
+			{
+				"x":15,
+				"y":10
+			},
+			{
+				"x":2,
+				"y":8
+			},
+			{
+				"x":9,
+				"y":1
+			}
+		],
+		"triples":[
+			{
+				"x":1,
+				"y":1
+			},
+			{
+				"x":6,
+				"y":10
+			},
+			{
+				"x":5,
+				"y":15
+			},
+			{
+				"x":7,
+				"y":3
+			},
+			{
+				"x":3,
+				"y":1
+			},
+			{
+				"x":11,
+				"y":5
+			},
+			{
+				"x":9,
+				"y":2
+			},
+			{
+				"x":6,
+				"y":2
+			},
+			{
+				"x":17,
+				"y":4
+			}
+		]
+	},
+	"diccionario":[
+		{
+			"palabra": "hola"
+		},
+		{
+			"palabra": "you"
+		},
+		{
+			"palabra": "tu"
+		},
+		{
+			"palabra": "dios"
+		},
+		{
+			"palabra": "foca"
+		},
+		{
+			"palabra": "devil"
+		},
+		{
+			"palabra": "cola"
+		},
+		{
+			"palabra": "ala"
+		},
+		{
+			"palabra": "zeta"
+		},
+		{
+			"palabra": "feel"
+		},
+		{
+			"palabra": "ahora"
+		},
+		{
+			"palabra": "rojo"
+		},
+		{
+			"palabra": "rola"
+		},
+		{
+			"palabra": "ver"
+		},
+		{
+			"palabra": "eco"
+		},
+		{
+			"palabra": "see"
+		},
+		{
+			"palabra": "filo"
+		},
+		{
+			"palabra": "and"
+		},
+		{
+			"palabra": "xnor"
+		},
+		{
+			"palabra": "abduzcan"
+		},
+		{
+			"palabra": "leche"
+		},
+		{
+			"palabra": "leer"
+		},
+		{
+			"palabra": "raja"
+		},
+		{
+			"palabra": "rico"
+		},
+		{
+			"palabra": "forte"
+		},
+		{
+			"palabra": "ayer"
+		},
+		{
+			"palabra": "lost"
+		},
+		{
+			"palabra": "boss"
+		},
+		{
+			"palabra": "walk"
+		},
+		{
+			"palabra": "row"
+		},
+		{
+			"palabra": "box"
+		},
+		{
+			"palabra": "table"
+		},
+		{
+			"palabra": "malone"
+		},
+		{
+			"palabra": "fire"
+		},
+		{
+			"palabra": "six"
+		},
+		{
+			"palabra": "let"
+		},
+		{
+			"palabra": "hell"
+		},
+		{
+			"palabra": "water"
+		},
+		{
+			"palabra": "grammy"
+		},
+		{
+			"palabra": "are"
+		},
+		{
+			"palabra": "am"
+		},
+		{
+			"palabra": "love"
+		},
+		{
+			"palabra": "medic"
+		},
+		{
+			"palabra": "feather"
+		},
+		{
+			"palabra": "trust"
+		},
+		{
+			"palabra": "wife"
+		},
+		{
+			"palabra": "song"
+		},
+		{
+			"palabra": "blame"
+		},
+		{
+			"palabra": "city"
+		},
+		{
+			"palabra": "angels"
+		},
+		{
+			"palabra": "house"
+		},
+		{
+			"palabra": "sun"
+		},
+		{
+			"palabra": "again"
+		},
+		{
+			"palabra": "beauty"
+		},
+		{
+			"palabra": "where"
+		},
+		{
+			"palabra": "donde"
+		},
+		{
+			"palabra": "cuando"
+		},
+		{
+			"palabra": "romeo"
+		},
+		{
+			"palabra": "sol"
+		},
+		{
+			"palabra": "wrong"
+		},
+		{
+			"palabra": "señorita"
+		},
+		{
+			"palabra": "clear"
+		},
+		{
+			"palabra": "mama"
+		},
+		{
+			"palabra": "gonna"
+		},
+		{
+			"palabra": "want"
+		},
+		{
+			"palabra": "alone"
+		},
+		{
+			"palabra": "color"
+		},
+		{
+			"palabra": "eyes"
+		},
+		{
+			"palabra": "ojos"
+		},
+		{
+			"palabra": "shade"
+		},
+		{
+			"palabra": "shadow"
+		},
+		{
+			"palabra": "moses"
+		},
+		{
+			"palabra": "time"
+		},
+		{
+			"palabra": "momento"
+		},
+		{
+			"palabra": "tiempo"
+		},
+		{
+			"palabra": "end"
+		},
+		{
+			"palabra": "ser"
+		},
+		{
+			"palabra": "humano"
+		},
+		{
+			"palabra": "sound"
+		},
+		{
+			"palabra": "close"
+		},
+		{
+			"palabra": "cerca"
+		},
+		{
+			"palabra": "far"
+		},
+		{
+			"palabra": "lejos"
+		},
+		{
+			"palabra": "left"
+		},
+		{
+			"palabra": "right"
+		},
+		{
+			"palabra": "crecer"
+		},
+		{
+			"palabra": "vida"
+		},
+		{
+			"palabra": "life"
+		},
+		{
+			"palabra": "ir"
+		},
+		{
+			"palabra": "buscar"
+		},
+		{
+			"palabra": "amor"
+		},
+		{
+			"palabra": "dumb"
+		},
+		{
+			"palabra": "money"
+		},
+		{
+			"palabra": "dinero"
+		},
+		{
+			"palabra": "go"
+		},
+		{
+			"palabra": "burn"
+		},
+		{
+			"palabra": "broke"
+		},
+		{
+			"palabra": "quemar"
+		},
+		{
+			"palabra": "queso"
+		},
+		{
+			"palabra": "people"
+		},
+		{
+			"palabra": "persona"
+		},
+		{
+			"palabra": "down"
+		},
+		{
+			"palabra": "new"
+		},
+		{
+			"palabra": "logic"
+		},
+		{
+			"palabra": "binary"
+		},
+		{
+			"palabra": "tree"
+		},
+		{
+			"palabra": "young"
+		},
+		{
+			"palabra": "vibe"
+		},
+		{
+			"palabra": "fight"
+		},
+		{
+			"palabra": "yo"
+		},
+		{
+			"palabra": "well"
+		},
+		{
+			"palabra": "defeat"
+		},
+		{
+			"palabra": "now"
+		},
+		{
+			"palabra": "vicious"
+		},
+		{
+			"palabra": "damn"
+		},
+		{
+			"palabra": "fe"
+		},
+		{
+			"palabra": "mar"
+		},
+		{
+			"palabra": "el"
+		},
+		{
+			"palabra": "ese"
+		},
+		{
+			"palabra": "pez"
+		},
+		{
+			"palabra": "eso"
+		},
+		{
+			"palabra": "voy"
+		},
+		{
+			"palabra": "va"
+		},
+		{
+			"palabra": "mira"
+		},
+		{
+			"palabra": "ela"
+		},
+		{
+			"palabra": "ana"
+		},
+		{
+			"palabra": "red"
+		},
+		{
+			"palabra": "ano"
+		},
+		{
+			"palabra": "fuck"
+		},
+		{
+			"palabra": "crap"
+		},
+		{
+			"palabra": "roto"
+		},
+		{
+			"palabra": "roca"
+		},
+		{
+			"palabra": "ola"
+		},
+		{
+			"palabra": "alu"
+		},
+		{
+			"palabra": "robo"
+		},
+		{
+			"palabra": "nena"
+		},
+		{
+			"palabra": "baby"
+		},
+		{
+			"palabra": "reta"
+		},
+		{
+			"palabra": "papa"
+		},
+		{
+			"palabra": "te"
+		},
+		{
+			"palabra": "uno"
+		},
+		{
+			"palabra": "dos"
+		},
+		{
+			"palabra": "we"
+		},
+		{
+			"palabra": "si"
+		},
+		{
+			"palabra": "yes"
+		},
+		{
+			"palabra": "no"
+		},
+		{
+			"palabra": "now"
+		},
+		{
+			"palabra": "bad"
+		},
+		{
+			"palabra": "guy"
+		},
+		{
+			"palabra": "hope"
+		},
+		{
+			"palabra": "otak"
+		},
+		{
+			"palabra": "ajo"
+		},
+		{
+			"palabra": "aro"
+		},
+		{
+			"palabra": "ball"
+		},
+		{
+			"palabra": "can"
+		},
+		{
+			"palabra": "car"
+		},
+		{
+			"palabra": "oso"
+		},
+		{
+			"palabra": "sal"
+		},
+		{
+			"palabra": "pie"
+		},
+		{
+			"palabra": "pan"
+		},
+		{
+			"palabra": "sed"
+		},
+		{
+			"palabra": "tos"
+		},
+		{
+			"palabra": "luz"
+		},
+		{
+			"palabra": "uva"
+		},
+		{
+			"palabra": "rio"
+		},
+		{
+			"palabra": "feo"
+		},
+		{
+			"palabra": "fea"
+		},
+		{
+			"palabra": "ron"
+		},
+		{
+			"palabra": "cat"
+		},
+		{
+			"palabra": "dog"
+		},
+		{
+			"palabra": "res"
+		}
+	]
+}

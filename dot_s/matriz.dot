@@ -3,19 +3,20 @@ digraph {
  rankdir=LR; 
  noder[label ="Root"];
 nodeCol_1[label="Col 1"];
+nodeCol_2[label="Col 2"];
 nodeFil_1[label="Fil 1"];
 node1_1[label ="T"];
-nodeFil_2[label="Fil 2"];
-node1_2[label ="U"];
+node2_1[label ="E"];
 
-noder->nodeCol_1[dir =both];
-nodeFil_1->node1_1[dir =both];
-nodeFil_2->node1_2[dir =both];
+noder->nodeCol_1->nodeCol_2[dir =both];
+nodeFil_1->node1_1->node2_1[dir =both];
 
-noder->nodeFil_1->nodeFil_2[dir =both];
-nodeCol_1->node1_1->node1_2[dir =both];
+noder->nodeFil_1[dir =both];
+nodeCol_1->node1_1[dir =both];
+nodeCol_2->node2_1[dir =both];
 
-{rank=same noder,nodeFil_1,nodeFil_2}
-{rank = same nodeCol_1,node1_1,node1_2}
+{rank=same noder,nodeFil_1}
+{rank = same nodeCol_1,node1_1}
+{rank = same nodeCol_2,node2_1}
  
  }

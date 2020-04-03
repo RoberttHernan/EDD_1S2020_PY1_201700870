@@ -58,7 +58,6 @@ T NodoDCLL<T>::getData(){
     return this->data;
 }
 
-
 //destructor
 
 template<typename T>
