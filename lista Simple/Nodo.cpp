@@ -46,6 +46,13 @@ template <typename T>
 T Nodo<T>::getData(){
     return this->data;
 }
+template<typename T>
+void Nodo<T>::delete_all()
+{
+    if (next)
+        next->delete_all();
+    delete this;
+}
 
 
 //destructor

@@ -15,8 +15,8 @@ public:
     Nodo();
     ~Nodo();
     Nodo(T);
-    void deleteAll();
     void print ();
+    void delete_all();
     
     //Getters y Setters
     Nodo* getNext();

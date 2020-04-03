@@ -89,6 +89,11 @@ void listaSimple<T>::AddSort(T data)
 }
 
 template <typename T>
+void listaSimple<T>::DeleteAll(){
+    head->delete_all();
+    head = NULL;
+}
+template <typename T>
 Nodo<T> * listaSimple<T>::getTail(){return this->tail;}
 template <typename T>
 listaSimple<T>::~listaSimple() {}

@@ -25,6 +25,7 @@ public:
     void textoGraphviz();
     string buscarPalabraMatriz_x(int x);//buscar palabras en una columna
     string buscarPalabraMatriz_y(int y);//buscar palabras en una columna
+    
     void borrarNodo(int , int);
     void borrarFila(int); // borrar una fila residual vacia
     void borrarColumna(int);// borra una columna residual vacia

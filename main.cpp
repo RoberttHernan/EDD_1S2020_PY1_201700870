@@ -32,10 +32,15 @@ bool buscarLetraEnListaJugador(listaEnlazadaDobleCircular<Letra> *lista, string 
 string ToUpperCase(string st1);
 bool match(listaSimple<Casillas> *lista);
 void cambiarFichas(listaEnlazadaDobleCircular<Letra> *lista_letras_jugador);
-NodoDCLL<Letra> * buscarLetraEnListaJugador_nodo(listaEnlazadaDobleCircular<Letra> *lista, string letra);
+NodoDCLL<Letra> *buscarLetraEnListaJugador_nodo(listaEnlazadaDobleCircular<Letra> *lista, string letra);
+int getPuntuacionLetra(string letra);
+int getPuntuacionTotal(int x, int y);
+int BuscarDoble_Triple(int x, int y);
 
-int dimension;                                                      // entero M que guarda la dimension M*M del tablero de juego
-int turno = 1;                                                      // entero que maneja en que turno estamos, 1 = jugador uno, 2= jugador 2
+int dimension;  // entero M que guarda la dimension M*M del tablero de juego
+int puntajeJugadorUno=0;
+int puntajeJugadorDos=0;
+
 listaSimple<Casillas> *listaCasillas = new listaSimple<Casillas>(); //Guarda la configuracion de las casillas del juego
 //lista Doblemente enlazada circular que guardara las palabras del juego
 listaEnlazadaDobleCircular<string> *listaPalabras = new listaEnlazadaDobleCircular<string>(); //diccionario de palabras
@@ -119,6 +124,7 @@ int main()
                 cout << "4: Ver lista de Usuarios\n";
                 cout << "5: Salir\n";
                 cin >> opcion_caso3;
+
                 switch (opcion_caso3)
                 {
                 case 1:
@@ -280,21 +286,22 @@ int main()
                                 graficarListasJugadores(lista_jugador_uno);
                                 break;
                             case 3:
-                            cambiarFichas(lista_jugador_uno);
-                            system ("pause");
+                                cambiarFichas(lista_jugador_uno);
+                                system("pause");
                                 break;
                             case 4:
                                 if (match(listaCasillasTemp))
                                 {
                                     cout << "Turno Valido\n";
                                     Nodo<Casillas> *temp = listaCasillasTemp->getHead();
-                                    while (temp!=NULL){
-                                   NodoDCLL<Letra> * temporal = buscarLetraEnListaJugador_nodo(lista_jugador_uno,temp->getData().getTipo());
-                                   lista_jugador_uno->borrarNodo(temporal);
-                                   temp = temp->getNext();
+                                    while (temp != NULL)
+                                    {
+                                        NodoDCLL<Letra> *temporal = buscarLetraEnListaJugador_nodo(lista_jugador_uno, temp->getData().getTipo());
+                                        lista_jugador_uno->borrarNodo(temporal);
+                                        temp = temp->getNext();
                                     }
-
-
+                                    int o = getPuntuacionTotal(1, 1);
+                                    cout << "Tu puntuacion total es : " + to_string(o) + "\n";
                                 }
                                 else
                                 {
@@ -305,8 +312,8 @@ int main()
                                         tablero->borrarNodo(temp->getData().get_x(), temp->getData().get_y());
                                         temp = temp->getNext();
                                     }
-                                    tablero->textoGraphviz();
                                 }
+                                bandera_4_2 = false;
 
                                 break;
 
@@ -317,6 +324,95 @@ int main()
                             }
                         }
                     }
+                    break;
+                    case 3:
+                    {
+                        bool bandera4_3 = true;
+                        int caso4_3;
+                        while (bandera4_3)
+                        {
+                            cout << "1:Colocar letra\n";
+                            cout << "2:Ver fichas disponibles \n";
+                            cout << "3:Pedir fichas nuevas \n";
+                            cout << "4:Terminar turno \n";
+                            cin >> caso4_3;
+
+                            switch (caso4_3)
+                            {
+                            case 1:
+                            {
+                                string letra;
+                                int x;
+                                int y;
+
+                                cout << "Ingresa la letra\n";
+                                cin >> letra;
+                                cout << "ingresa la columna (x)\n";
+                                cin >> x;
+                                cout << "Ingresa la fila (y)\n";
+                                cin >> y;
+
+                                if (x > dimension || y > dimension)
+                                {
+                                    cout << "Error de dimension de casilla";
+                                }
+                                else if (!buscarLetraEnListaJugador(lista_jugador_dos, letra))
+                                {
+                                    cout << "Error, letra no disponible en tu lista de fichas\n";
+                                }
+                                else
+                                {
+
+                                    tablero->AddElement(letra, x, y);
+                                    listaCasillasTemp->AddHead(*new Casillas(letra, x, y));
+                                    tablero->textoGraphviz();
+                                    system("pause");
+                                }
+                            }
+
+                            break;
+                            case 2:
+                                graficarListasJugadores(lista_jugador_dos);
+                                break;
+                            case 3:
+                            cambiarFichas(lista_jugador_dos);
+                                system("pause");
+                                break;
+                            case 4:
+                            if (match(listaCasillasTemp))
+                                {
+                                    cout << "Turno Valido\n";
+                                    Nodo<Casillas> *temp = listaCasillasTemp->getHead();
+                                    while (temp != NULL)
+                                    {
+                                        NodoDCLL<Letra> *temporal = buscarLetraEnListaJugador_nodo(lista_jugador_dos, temp->getData().getTipo());
+                                        lista_jugador_dos->borrarNodo(temporal);
+                                        temp = temp->getNext();
+                                    }
+                                    int o = getPuntuacionTotal(1, 1);
+                                    cout << "Tu puntuacion total es : " + to_string(o) +"\n";
+                                    
+                                }
+                                else
+                                {
+                                    cout << "Turno Invalido\n";
+                                    Nodo<Casillas> *temp = listaCasillasTemp->getHead();
+                                    while (temp != NULL)
+                                    {
+                                        tablero->borrarNodo(temp->getData().get_x(), temp->getData().get_y());
+                                        temp = temp->getNext();
+                                    }
+                                }
+                                listaCasillasTemp->DeleteAll();
+                                bandera4_3 = false;
+                                break;
+
+                            default:
+                                break;
+                            }
+                        }
+                    }
+
                     break;
 
                     default:
@@ -418,7 +514,6 @@ int main()
 
         default:
             cout << "Seleccion invalida >:| \n";
-            system("pause");
             break;
         }
     }
@@ -1032,7 +1127,8 @@ void cambiarFichas(listaEnlazadaDobleCircular<Letra> *lista_letras_jugador)
     llenarListaDobles(lista_letras_jugador);
 }
 
-NodoDCLL<Letra> * buscarLetraEnListaJugador_nodo(listaEnlazadaDobleCircular<Letra> *lista, string letra){
+NodoDCLL<Letra> *buscarLetraEnListaJugador_nodo(listaEnlazadaDobleCircular<Letra> *lista, string letra)
+{
     NodoDCLL<Letra> *temp = lista->getHead();
     int contador = 1;
 
@@ -1047,4 +1143,121 @@ NodoDCLL<Letra> * buscarLetraEnListaJugador_nodo(listaEnlazadaDobleCircular<Letr
         temp = temp->getNext();
         contador++;
     }
+}
+int getPuntuacionLetra(string letra)
+{
+    if (letra == "A" || letra == "E" || letra == "O" || letra == "I" || letra == "S" || letra == "N" || letra == "L" || letra == "R" || letra == "U" || letra == "T")
+    {
+        return 1;
+    }
+    else if (letra == "D" || letra == "G")
+    {
+        return 2;
+    }
+    else if (letra == "C" || letra == "B" || letra == "M" || letra == "P")
+    {
+        return 3;
+    }
+    else if (letra == "H" || letra == "F" || letra == "V" || letra == "Y")
+    {
+        return 4;
+    }
+    else if (letra == "Q")
+    {
+        return 5;
+    }
+    else if (letra == "J" || letra == "X")
+    {
+        return 8;
+    }
+    else if (letra == "Z")
+    {
+        return 10;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+int getPuntuacionTotal(int x, int y)
+{
+
+    string temp1 = tablero->buscarPalabraMatriz_x(x);
+    string temp2 = tablero->buscarPalabraMatriz_y(y);
+
+    int puntuacion_total_x = 0;
+    int puntuacion_total_y = 0;
+    if (listaPalabras->buscar(temp1)) // si encuentra una coincidencia de palabra en x
+    {
+        NodeMatriz<string> *temp = tablero->getRoot(); // buscando puntuacion en x
+        while (temp->getX() != x)
+        { // recorre a la derecha
+            temp = temp->getRight();
+        }
+        while (temp != NULL)
+        { // recorremos hacia abajo
+            if (temp->getY() == -1)
+            {
+                temp = temp->getDown();
+            }
+            else
+            {
+                int bonus = BuscarDoble_Triple(temp->getX(), temp->getY());
+                int puntoLetra = getPuntuacionLetra(temp->getData());
+                int total = puntoLetra * bonus;
+                puntuacion_total_x += total;
+                temp = temp->getDown();
+            }
+        }
+    }
+    else if (listaPalabras->buscar(temp2))
+    {
+        NodeMatriz<string> *temp = tablero->getRoot();
+        while (temp->getY() != y)
+        {
+            temp = temp->getDown();
+        }
+        while (temp != NULL)
+        {
+            if (temp->getX() == -1)
+            {
+                temp = temp->getRight();
+            }
+            else
+            {
+                int bonus = BuscarDoble_Triple(temp->getX(), temp->getY());
+                int puntoLetra = getPuntuacionLetra(temp->getData());
+                int total = puntoLetra * bonus;
+                puntuacion_total_y += total;
+                temp = temp->getRight();
+            }
+        }
+    }
+    return puntuacion_total_x + puntuacion_total_y;
+}
+
+int BuscarDoble_Triple(int x, int y)
+{
+    Nodo<Casillas> *temp = listaCasillas->getHead();
+    while (temp != NULL)
+    {
+        if (temp->getData().get_x() == x && temp->getData().get_y() == y)
+        {
+            if (temp->getData().getTipo() == "Doble")
+            {
+                return 2;
+            }
+            else if (temp->getData().getTipo() == "Triple")
+            {
+                return 3;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+        temp = temp->getNext();
+    }
+    return 1;
 }
