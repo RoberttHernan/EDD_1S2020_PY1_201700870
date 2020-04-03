@@ -38,6 +38,7 @@ int getPuntuacionTotal(int x, int y);
 int BuscarDoble_Triple(int x, int y);
 void catchError();
 void ReportePuntajePorJugador();
+void terminarPartida();
 
 int dimension; // entero M que guarda la dimension M*M del tablero de juego
 int puntajeJugadorUno = 0;
@@ -476,6 +477,8 @@ int main()
                             cout << "Ganaste! " + jugador_dos.getUsuario() + "\n";
                             system("pause");
                         }
+                        terminarPartida();
+                        caso_4= false;
                         break;
 
                     default:
@@ -1344,4 +1347,21 @@ void catchError()
 
 void ReportePuntajePorJugador()
 {
+}
+void terminarPartida(){
+    Jugador  *temp = new Jugador ("NULL");
+    jugador_uno = *temp;
+    jugador_dos =* temp;
+
+    tablero->borrarMatriz();
+    cola->DeleteAll();
+    llenarColaAleatoria();
+    puntajeJugadorUno=0;
+    puntajeJugadorDos=0;
+
+    lista_jugador_uno->borrarLista();
+    lista_jugador_dos->borrarLista();
+
+    
+
 }

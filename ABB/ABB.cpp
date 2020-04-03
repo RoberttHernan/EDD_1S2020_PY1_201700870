@@ -366,7 +366,7 @@ void ABB::GraficarPostorden()
 void ABB::GraficareportePuntajeJugador(string usuario)
 {
 
-    string texto = "digraph G {\nrankdir = LR; \n node[shape = record];";
+    string texto = "digraph G {\nrankdir = LR; \n node[shape = record];\n";
     if (buscar(usuario))
     {
         Jugador temp = buscarJugador(usuario);
@@ -376,24 +376,28 @@ void ABB::GraficareportePuntajeJugador(string usuario)
         {
             if (temp1->getNext() == NULL)
             {
-                texto += temp1->getData() + ";\n";
+                texto += to_string(temp1->getData()) + ";\n";
+                temp1 = temp1->getNext();
             }
             else
             {
-                texto += temp1->getData() + "->";
+                texto += to_string(temp1->getData()) + "->";
+                temp1 = temp1->getNext();
             }
         }
 
         texto += "label =\"" + temp.getUsuario() + "\";\n";
         texto += "labelloc =\"t\"; \n } ";
 
-        ofstream ficheroSalida;
-        ficheroSalida.open("dot_s\\puntajeporjugador.dot");
-        ficheroSalida << texto;
-        ficheroSalida.close();
+        {
+            ofstream ficheroSalida;
+            ficheroSalida.open("dot_s\\puntajeporjugador.dot");
+            ficheroSalida << texto;
+            ficheroSalida.close();
 
-        system("dot -Tpng dot_s\\puntajeporjugador.dot -o imagenes\\puntajeporjugador.png");
-        system("imagenes\\puntajeporjugador.png &");
+            system("dot -Tpng dot_s\\puntajeporjugador.dot -o imagenes\\puntajeporjugador.png");
+            system("imagenes\\puntajeporjugador.png &");
+        }
     }
     else
     {

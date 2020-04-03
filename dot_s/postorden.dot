@@ -1,5 +1,5 @@
 digraph g {
  rankdir=LR; 
  node [shape = record]
-"Antonio"->"Eduardo"->"Carlos"->"Rodrigo"->"Heidy"
+"Antonio"->"Eduardo"->"Carlos"->"Tony_rose"->"Rodrigo"->"Heidy"
 }

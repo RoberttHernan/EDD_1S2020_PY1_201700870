@@ -29,7 +29,7 @@ public:
     void borrarNodo(int , int);
     void borrarFila(int); // borrar una fila residual vacia
     void borrarColumna(int);// borra una columna residual vacia
-    void Matriz<T>::borrarMatriz();//borrar todos los nodos dejando unicamente la raiz
+    void borrarMatriz();//borrar todos los nodos dejando unicamente la raiz
     
 
 };

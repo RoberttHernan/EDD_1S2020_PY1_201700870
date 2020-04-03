@@ -8,5 +8,7 @@ digraph {
 "Antonio"
 "Eduardo"
 "Rodrigo"
+"Rodrigo"->"Tony_rose"
+"Tony_rose"
  labelloc="t"; label="Jugadores disponibles"; 
 }

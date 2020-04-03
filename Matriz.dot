@@ -1,0 +1,32 @@
+digraph { 
+ node [shape = rectangle]; 
+ rankdir=LR; 
+ noder[label ="Root" group = -1];
+nodeCol_10[label="Col 10" group = -1];
+nodeCol_11[label="Col 11" group = -1];
+nodeCol_12[label="Col 12" group = -1];
+nodeFil_10[label="Fil 10" group =10];
+node10_10[label ="Y" group =10];
+node11_10[label ="E" group =10];
+node12_10[label ="S" group =10];
+nodeFil_11[label="Fil 11" group =11];
+node12_11[label ="O" group =11];
+nodeFil_13[label="Fil 13" group =13];
+node12_13[label ="L" group =13];
+
+noder->nodeCol_10->nodeCol_11->nodeCol_12[dir =both];
+nodeFil_10->node10_10->node11_10->node12_10[dir =both];
+nodeFil_11->node12_11[dir =both];
+nodeFil_13->node12_13[dir =both];
+
+noder->nodeFil_10->nodeFil_11->nodeFil_13[dir =both];
+nodeCol_10->node10_10[dir =both];
+nodeCol_11->node11_10[dir =both];
+nodeCol_12->node12_10->node12_11->node12_13[dir =both];
+
+{rank=same noder,nodeFil_10,nodeFil_11,nodeFil_13}
+{rank = same nodeCol_10,node10_10}
+{rank = same nodeCol_11,node11_10}
+{rank = same nodeCol_12,node12_10,node12_11,node12_13}
+ 
+ }
