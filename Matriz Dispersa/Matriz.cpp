@@ -202,7 +202,7 @@ NodeMatriz<T> *Matriz<T>::AddSortRow(NodeMatriz<T> *nuevo, NodeMatriz<T> *head_r
     }
 }
 template <typename T>
-void Matriz<T>::textoGraphviz() //arbol
+void Matriz<T>::textoGraphviz() 
 {
     NodeMatriz<T> *temp = root;
     NodeMatriz<T> *temp_y = temp;
@@ -221,13 +221,13 @@ void Matriz<T>::textoGraphviz() //arbol
         {
             if (temp == root) // lo primero que visitamos es la raiz
             {
-                texto1 += "noder[label =\"Root\"];\n";
+                texto1 += "noder[label =\"Root\" group = -1];\n";
                 temp = temp->getRight();
             }
             else
             {
 
-                texto1 += "nodeCol_" + to_string(temp->getX()) + "[label=\"Col " + to_string(temp->getX()) + "\"];\n";
+                texto1 += "nodeCol_" + to_string(temp->getX()) + "[label=\"Col " + to_string(temp->getX()) + "\" group = -1];\n";
                 temp = temp->getRight();
             }
             if (temp == NULL) // si llegamos al final de la fila
@@ -240,12 +240,12 @@ void Matriz<T>::textoGraphviz() //arbol
         {
             if (temp->getX() == -1) // si estamos en la columna -1
             {
-                texto1 += "nodeFil_" + to_string(temp->getY()) + "[label=\"Fil " + to_string(temp->getY()) + "\"];\n";
+                texto1 += "nodeFil_" + to_string(temp->getY()) + "[label=\"Fil " + to_string(temp->getY()) + "\" group ="+to_string(temp->getY())+ "];\n";
                 temp = temp->getRight();
             }
             else
             {
-                texto1 += "node" + to_string(temp->getX()) + "_" + to_string(temp->getY()) + "[label =\"" + temp->getData() + "\"];\n";
+                texto1 += "node" + to_string(temp->getX()) + "_" + to_string(temp->getY()) + "[label =\"" + temp->getData() + "\" group ="+to_string(temp->getY())+ "];\n";
                 temp = temp->getRight();
             }
             if (temp == NULL) // si llegamos al final de la fila
@@ -454,12 +454,12 @@ void Matriz<T>::textoGraphviz() //arbol
     texto += " \n }";
 
     ofstream ficheroSalida;
-    ficheroSalida.open("dot_s\\matriz.dot");
+    ficheroSalida.open("Matriz.dot");
     ficheroSalida << texto;
     ficheroSalida.close();
 
-    system("dot -Tpng dot_s\\matriz.dot -o imagenes\\matriz.png");
-    system("imagenes\\matriz.png &");
+    system("dot -Tpng Matriz.dot -o Matriz.png");
+    system("Matriz.png &");
 }
 
 template <typename T>
@@ -593,4 +593,24 @@ void Matriz<T>::borrarFila(int y)
             free(temp);
         }
     }
+}
+
+template <typename T>
+void Matriz<T>::borrarMatriz(){
+    NodeMatriz<T> * temp = root;
+    NodeMatriz<T> *tempx = temp;
+    NodeMatriz<T> *tempy = temp;
+
+    if (root->getRight()!= NULL){
+        tempx = temp->getRight();
+        root ->setRight(NULL);
+
+    }
+    if (root->getDown()!=NULL){
+        tempy = temp->getDown();
+        root->setDown(NULL);
+    }
+    free (tempx);
+    free (tempy);
+    
 }

@@ -24,6 +24,8 @@ public:
     T getData();
     void setData(T data);
 
+    void delete_all();
+
 };
 
 

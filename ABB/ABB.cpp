@@ -6,7 +6,7 @@ string texto_arbol_grafica;
 string texto_preorden;
 string texto_inorden;
 string texto_postorden;
-int contador_temp=0;
+int contador_temp = 0;
 ABB::ABB()
 {
 
@@ -15,7 +15,7 @@ ABB::ABB()
     this->contador = 0;
     this->altura = 0;
 }
-int ABB::getContador(){return this->contador;}
+int ABB::getContador() { return this->contador; }
 
 NodoArbol *ABB::getRoot()
 {
@@ -297,7 +297,7 @@ string ABB::InOrden(NodoArbol *nodo)
     {
         InOrden(nodo->getLeft());
 
-        if (contador_temp == contador-1)
+        if (contador_temp == contador - 1)
         {
             texto_inorden += "\"" + nodo->getPlayer().getUsuario() + "\"";
         }
@@ -329,12 +329,12 @@ void ABB::GraficarInorden()
 }
 string ABB::PostOrden(NodoArbol *nodo)
 {
-    if (nodo!=NULL)
+    if (nodo != NULL)
     {
         PostOrden(nodo->getLeft());
         PostOrden(nodo->getRight());
 
-        if (contador_temp == contador-1)
+        if (contador_temp == contador - 1)
         {
             texto_postorden += "\"" + nodo->getPlayer().getUsuario() + "\"";
         }
@@ -343,7 +343,6 @@ string ABB::PostOrden(NodoArbol *nodo)
             texto_postorden += "\"" + nodo->getPlayer().getUsuario() + "\"->";
             contador_temp++;
         }
-        
     }
     return texto_postorden;
 }
@@ -362,4 +361,43 @@ void ABB::GraficarPostorden()
     system("imagenes\\postorden.png &");
     texto_postorden = "";
     contador_temp = 0;
+}
+
+void ABB::GraficareportePuntajeJugador(string usuario)
+{
+
+    string texto = "digraph G {\nrankdir = LR; \n node[shape = record];";
+    if (buscar(usuario))
+    {
+        Jugador temp = buscarJugador(usuario);
+        Nodo<int> *temp1 = temp.getPuntajeUsuario()->getHead();
+
+        while (temp1 != NULL)
+        {
+            if (temp1->getNext() == NULL)
+            {
+                texto += temp1->getData() + ";\n";
+            }
+            else
+            {
+                texto += temp1->getData() + "->";
+            }
+        }
+
+        texto += "label =\"" + temp.getUsuario() + "\";\n";
+        texto += "labelloc =\"t\"; \n } ";
+
+        ofstream ficheroSalida;
+        ficheroSalida.open("dot_s\\puntajeporjugador.dot");
+        ficheroSalida << texto;
+        ficheroSalida.close();
+
+        system("dot -Tpng dot_s\\puntajeporjugador.dot -o imagenes\\puntajeporjugador.png");
+        system("imagenes\\puntajeporjugador.png &");
+    }
+    else
+    {
+        cout << "Usuario no encontrado";
+        return;
+    }
 }

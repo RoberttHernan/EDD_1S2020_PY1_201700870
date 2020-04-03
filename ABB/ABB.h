@@ -44,6 +44,9 @@ public:
     string PostOrden(NodoArbol *);//Izquierda, derecha, raiz
     void GraficarPostorden();
 
+    void GraficareportePuntajeJugador(string usuario);
+
+
 
     void mostrarJugadoresSimple ();// mostrara solo el listado de jugadores existentes
     string graphvizArbolSimple(NodoArbol * nodo);// regresa el texto intermedio del texto graphviz necesitado para graficar en la funcion mostrarJugadoresSimple();

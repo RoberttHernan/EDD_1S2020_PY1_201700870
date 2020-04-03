@@ -16,14 +16,6 @@ Nodo <T>::Nodo (T data){
 
 }
 
-//eliminar todos los nodos
-template <typename T>
-void Nodo <T>::deleteAll(){
-    if (next){
-        next->deleteAll();
-        delete this ;
-    }
-}
 //imprime un nodo
 template <typename T>
 void Nodo <T>:: print(){

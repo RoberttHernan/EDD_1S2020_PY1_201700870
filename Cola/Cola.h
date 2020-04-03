@@ -28,6 +28,7 @@ public:
     int getSize();
     void setSize(int);
     bool buscar(T);
+    void DeleteAll();
 
 };
 

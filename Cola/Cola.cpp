@@ -100,3 +100,8 @@ template <typename T>
 Cola<T>::~Cola()
 {
 }
+template <typename T>
+void Cola<T>::DeleteAll(){
+    head->delete_all();
+    head = NULL;
+}

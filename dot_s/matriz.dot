@@ -3,24 +3,24 @@ digraph {
  rankdir=LR; 
  noder[label ="Root"];
 nodeCol_1[label="Col 1"];
-nodeCol_2[label="Col 2"];
 nodeCol_3[label="Col 3"];
+nodeCol_4[label="Col 4"];
 nodeFil_1[label="Fil 1"];
-node1_1[label ="E"];
-node2_1[label ="S"];
-node3_1[label ="E"];
+node1_1[label ="G"];
+node3_1[label ="U"];
+node4_1[label ="Y"];
 
-noder->nodeCol_1->nodeCol_2->nodeCol_3[dir =both];
-nodeFil_1->node1_1->node2_1->node3_1[dir =both];
+noder->nodeCol_1->nodeCol_3->nodeCol_4[dir =both];
+nodeFil_1->node1_1->node3_1->node4_1[dir =both];
 
 noder->nodeFil_1[dir =both];
 nodeCol_1->node1_1[dir =both];
-nodeCol_2->node2_1[dir =both];
 nodeCol_3->node3_1[dir =both];
+nodeCol_4->node4_1[dir =both];
 
 {rank=same noder,nodeFil_1}
 {rank = same nodeCol_1,node1_1}
-{rank = same nodeCol_2,node2_1}
 {rank = same nodeCol_3,node3_1}
+{rank = same nodeCol_4,node4_1}
  
  }

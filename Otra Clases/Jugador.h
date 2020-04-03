@@ -23,6 +23,7 @@ public:
     void setPuntajeUsuario (listaSimple<int>*);
     
     
+    
 };
 
 Jugador::Jugador()
