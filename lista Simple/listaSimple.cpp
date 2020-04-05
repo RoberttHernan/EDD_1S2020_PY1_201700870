@@ -97,3 +97,6 @@ template <typename T>
 Nodo<T> * listaSimple<T>::getTail(){return this->tail;}
 template <typename T>
 listaSimple<T>::~listaSimple() {}
+
+template <typename T>
+void listaSimple<T>::setHead(Nodo<T> * head){this->head = head;}

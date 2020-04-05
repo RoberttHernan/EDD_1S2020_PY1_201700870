@@ -1,7 +1,7 @@
 digraph G {
 rankdir = LR; 
  node[shape = record];
-6;
-label ="Eduardo";
+8;
+label ="Antonio";
 labelloc ="t"; 
  } 

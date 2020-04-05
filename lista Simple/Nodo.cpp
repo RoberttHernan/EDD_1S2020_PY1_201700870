@@ -4,7 +4,6 @@
 template <typename T>
 
 Nodo <T>::Nodo(){
-    data = NULL;
     next = NULL;
 }
 
