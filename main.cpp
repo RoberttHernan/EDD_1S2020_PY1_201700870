@@ -1526,19 +1526,26 @@ void imprimirPuntajesTotales()
 
     while (temp != NULL)
     {
-        text += "node" + to_string(contador) + "[label =\"" + temp->getData().getUsuario() + "-" + to_string(temp->getData().getPuntajeUsuario()->getTail()->getData()) + "pts\"];\n";
-
-        if (temp->getNext() == NULL)
+        if (temp->getData().getPuntajeUsuario()->getHead() == NULL)
         {
-            text1 = "node" + to_string(contador) + ";\n";
+            text += "node" + to_string(contador) + "[label =\"" + temp->getData().getUsuario() + "-" + to_string(0) + "pts\"];\n";
         }
         else
         {
-            text1 = "node" + to_string(contador) + "->";
+            text += "node" + to_string(contador) + "[label =\"" + temp->getData().getUsuario() + "-" + to_string(temp->getData().getPuntajeUsuario()->getHead()->getData()) + "pts\"];\n";
+        }
+
+        if (temp->getNext() == NULL)
+        {
+            text1 += "node" + to_string(contador) + ";\n";
+        }
+        else
+        {
+            text1 += "node" + to_string(contador) + "->";
         }
         contador++;
         temp = temp->getNext();
     }
-    text += text1 + "\n}";
+    text = text+ text1 + "\n}";
     cout << text;
 }
