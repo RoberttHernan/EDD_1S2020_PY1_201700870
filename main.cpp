@@ -64,12 +64,6 @@ listaSimple<Jugador> *listaPuntajeTotal = new listaSimple<Jugador>();           
 
 int main()
 {
-
-    arbol->Add(new Jugador("Heidy"));
-    arbol->Add(new Jugador("Carlos"));
-    arbol->Add(new Jugador("Antonio"));
-    arbol->Add(new Jugador("Eduardo"));
-    arbol->Add(new Jugador("Rodrigo"));
     bool bandera = true;
     int opcion = 0;
     string ruta_configuracion;
